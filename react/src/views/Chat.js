@@ -17,7 +17,6 @@ class Chat extends React.Component {
 
     componentDidMount(){
         let socket = socketIOClient("http://127.0.0.1:8000", {query: "token=" + Auth.getToken()});
-        socket = socketIOClient("http://127.0.0.1:8000", {query: "token=" + Auth.getToken()});
         socket.on("connect", () => this.setState({connected: true}));
         socket.on("disconnect", () =>this.setState({connected: false}));
         socket.on("message", (message) => {
