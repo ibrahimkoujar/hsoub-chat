@@ -191,3 +191,7 @@ body{
     left: 47%;
     fill: #007cff !important;
 }
+
+#page-404 {
+    height: 100vh;
+}
