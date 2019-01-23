@@ -10,10 +10,6 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const createError = require('http-errors');
 
-/**
- * Json Web Token
- */
-const auth = require('./middlewares/auth');
 const authRouter = require('./routes/auth');
 const messageRouter = require('./routes/message');
 const userRouter = require('./routes/user');
@@ -62,45 +58,9 @@ mongoose.connect(process.env.DB_URL, {useNewUrlParser: true,  useCreateIndex: tr
  * Socket.IO
  */
 const io = require('socket.io')();
-
-io.use(auth.socket)
-
-io.on("connection", socket => {
-
-    // Join to socket to user room.
-    socket.join(socket.user.id);
-
-    // Log user connected.
-    console.log("New client connected: " + socket.user.username);
-
-    // Log user disconnected.
-    socket.on("disconnect", state => {
-        console.log("Client disconnected: " + socket.user.username);
-    });
-
-    // User message event.
-    socket.on("message", data => {
-        // Sender ID
-        let sender = socket.user.id;
-
-        // Receiver ID
-        let receiver = data.user_id;
-
-        // Message body
-        let message = {
-            user_id: sender, content: data.content, date: new Date().getTime()
-        };
-
-        // Send message to target user.
-        io.to(receiver).emit('message', message);
-
-        // Send message to sender sockets.
-        message.user_id = receiver;
-        socket.broadcast.to(sender).emit('sent_message', message);
-
-    });
-
-});
-io.listen(8000);
+const socketHandler = require('./socket-handler');
+io.use(socketHandler.auth)
+io.on("connection", socketHandler.events);
+io.listen(process.env.SOCKET_PORT);
 
 module.exports = app;
