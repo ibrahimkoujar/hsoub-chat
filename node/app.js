@@ -9,12 +9,19 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const createError = require('http-errors');
+const io = require('socket.io')();
 
+/**
+ * Routers
+ */
 const authRouter = require('./routes/auth');
 const messageRouter = require('./routes/message');
 const userRouter = require('./routes/user');
 
+// Express Application
 const app = express();
+// Socket.io
+app.io = io;
 
 /**
  * Express Middlewares.
@@ -24,7 +31,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 /**
  * Routes
@@ -51,16 +57,13 @@ app.use((err, req, res, next) => {
 mongoose.connect(process.env.DB_URL, {useNewUrlParser: true,  useCreateIndex: true}, err => {
     if(err) throw err;
     console.log('Connected successfully');
-
 });
 
 /**
  * Socket.IO
  */
-const io = require('socket.io')();
 const socketHandler = require('./socket-handler');
 io.use(socketHandler.auth)
 io.on("connection", socketHandler.events);
-io.listen(process.env.SOCKET_PORT);
 
 module.exports = app;
