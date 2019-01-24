@@ -33,8 +33,8 @@ class Register extends React.Component {
         let data = {
             name: this.state.name,
             username: this.state.username,
-            password: this.state.password,
-        }
+            password: this.state.password
+        };
         axios.post('/auth/register', data).then(res => {
             Auth.login(res.data);
             this.props.history.push('/');

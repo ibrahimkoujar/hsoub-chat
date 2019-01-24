@@ -27,10 +27,7 @@ class Login extends React.Component {
 
     onSubmit(e){
         e.preventDefault();
-        let data = {
-            username: this.state.username,
-            password: this.state.password,
-        }
+        let data = { username: this.state.username, password: this.state.password };
         axios.post('/auth', data).then(res => {
             Auth.login(res.data);
             this.props.history.push('/');

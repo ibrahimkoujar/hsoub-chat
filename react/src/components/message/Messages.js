@@ -18,7 +18,7 @@ class Messages extends React.Component {
         console.log(this.props.contact);
         let message = {
             user_id: this.props.contact.id,
-            type: 0,
+            incoming: false,
             content: this.state.message,
             date: new Date().getTime()
         };
@@ -48,7 +48,7 @@ class Messages extends React.Component {
     }
 
     renderMessage(message, index){
-        if (message.type === 1) {
+        if (message.incoming === true) {
             return <IncomingMessage key={index} message={message.content} date={message.date} />
         }
         return <OutgoingMessage key={index} message={message.content} date={message.date} />

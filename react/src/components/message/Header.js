@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, NavbarBrand, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import { Navbar, NavbarBrand, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import Auth from 'Auth';
 import { withRouter } from "react-router-dom";
 
@@ -22,10 +22,10 @@ class Header extends React.Component {
             <Navbar color="primary" className="text-white">
                 <NavbarBrand>{this.props.contact.username}</NavbarBrand>
                 <UncontrolledDropdown setActiveFromChild>
-                 <DropdownToggle tag="a" className="nav-link">حسابي</DropdownToggle>
-                 <DropdownMenu>
-                   <DropdownItem onClick={this.onLogout}>تسجيل االخروج</DropdownItem>
-                 </DropdownMenu>
+                    <DropdownToggle tag="a" className="nav-link">حسابي</DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={this.onLogout}>تسجيل االخروج</DropdownItem>
+                    </DropdownMenu>
                </UncontrolledDropdown>
             </Navbar>
         );

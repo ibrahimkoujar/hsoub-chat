@@ -32,7 +32,7 @@ exports.events = socket => {
         };
 
         // Send message to target user.
-        io.to(receiver).emit('message', message);
+        socket.to(receiver).emit('message', message);
 
         // Send message to sender sockets.
         message.user_id = receiver;
@@ -49,7 +49,7 @@ exports.events = socket => {
         // Message body
         let message = { user_id: sender };
         // Send message to target user.
-        io.to(receiver).emit('typing', message);
+        socket.to(receiver).emit('typing', message);
     });
 
 };

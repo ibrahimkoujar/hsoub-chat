@@ -11,24 +11,18 @@ class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.sendMessage = this.sendMessage.bind(this);
-        this.chatNavigate = this.chatNavigate.bind(this);
+        this.onSendMessage = this.onSendMessage.bind(this);
+        this.onChatNavigate = this.onChatNavigate.bind(this);
+        this.onNewMessage = this.onNewMessage.bind(this);
+        this.onSentMessage = this.onSentMessage.bind(this);
     }
 
     componentDidMount(){
         let socket = socketIOClient(process.env.REACT_APP_SOCKET, {query: "token=" + Auth.getToken()});
         socket.on("connect", () => this.setState({connected: true}));
         socket.on("disconnect", () =>this.setState({connected: false}));
-        socket.on("message", (message) => {
-            message.type = 1;
-            let messages = this.state.messages.concat(message);
-            this.setState({messages});
-        });
-        socket.on("sent_message", (message) => {
-            message.type = 0;
-            let messages = this.state.messages.concat(message);
-            this.setState({messages});
-        });
+        socket.on("message", this.onNewMessage);
+        socket.on("sent_message", this.onSentMessage);
         this.setState({socket});
         this.init();
     }
@@ -50,13 +44,25 @@ class Chat extends React.Component {
         })
     }
 
-    sendMessage(message){
+    onNewMessage(message){
+        message.incoming = true;
+        let messages = this.state.messages.concat(message);
+        this.setState({messages});
+    }
+
+    onSentMessage(message){
+        message.incoming = false;
+        let messages = this.state.messages.concat(message);
+        this.setState({messages});
+    }
+
+    onSendMessage(message){
         let messages = this.state.messages.concat(message);
         this.setState({messages});
         this.state.socket.emit('message', message);
     }
 
-    chatNavigate(contact, index, event){
+    onChatNavigate(contact, index, event){
         this.setState({contact: contact});
     }
 
@@ -68,7 +74,7 @@ class Chat extends React.Component {
             <div className="chat">
                 <div className="row">
                     <div className="col-4 pl-0">
-                        <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.chatNavigate}/>
+                        <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate}/>
                     </div>
                     <div className="col-8 pr-0">{this.renderChat()}</div>
                 </div>
@@ -79,7 +85,7 @@ class Chat extends React.Component {
     renderChat(){
         let contact = this.state.contact ? this.state.contact : this.state.contacts[0];
         let messages = this.state.messages.filter(e => e.user_id === contact.id);
-        return <Messages messages={messages} sender={this.sendMessage} contact={contact} />
+        return <Messages messages={messages} sender={this.onSendMessage} contact={contact} />
     }
 
 }
