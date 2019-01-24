@@ -20,7 +20,7 @@ class Header extends React.Component {
     render() {
         return (
             <Navbar color="primary" className="text-white">
-                <NavbarBrand>{this.props.contact.username}</NavbarBrand>
+                <NavbarBrand>{this.props.contact ? this.props.contact.name : ''}</NavbarBrand>
                 <UncontrolledDropdown setActiveFromChild>
                     <DropdownToggle tag="a" className="nav-link">حسابي</DropdownToggle>
                     <DropdownMenu>

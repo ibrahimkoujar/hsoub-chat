@@ -20,7 +20,7 @@ class Contacts extends React.Component {
         let lastMessage = messages[messages.length - 1];
         return(
             <div key={index} onClick={this.props.chatNavigate.bind(this, contact, index)}>
-                <Contact username={contact.username} message={lastMessage} />
+                <Contact name={contact.name} message={lastMessage} />
             </div>
         );
     }

@@ -9,7 +9,7 @@ const Contact = props => {
                 <img className="d-none d-md-block ml-3" src={Avatar} alt="" />
                 <div className="media-body">
                     <h6>
-                        {props.username}
+                        {props.name}
                         <span className="date">
                             {props.message ? moment( props.message.date).format("hh:mm a") : ''}
                         </span>

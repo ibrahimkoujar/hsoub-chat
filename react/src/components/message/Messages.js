@@ -14,8 +14,7 @@ class Messages extends React.Component {
     }
 
     onSendMessage(e){
-        if (!this.state.message) return;
-        console.log(this.props.contact);
+        if (!this.state.message || !this.props.contact) return;
         let message = {
             user_id: this.props.contact.id,
             incoming: false,
