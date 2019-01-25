@@ -1,11 +1,14 @@
 import React from "react";
-import { Navbar, NavbarBrand } from 'reactstrap';
+import Avatar from "assets/avatar.png";
 
 const Header = props => {
-    return (
-        <Navbar color="primary" className="text-white">
-            <NavbarBrand>جهات الاتصال</NavbarBrand>
-        </Navbar>
+    return ( 
+        <div className="row heading">
+            <div className="col-2 d-none d-md-block">
+                <img src={Avatar} width="40" className="rounded-circle" alt=""/>
+            </div>
+            <div className="col-10 pt-2">جهات الاتصال</div>
+        </div>
     );
 };
 

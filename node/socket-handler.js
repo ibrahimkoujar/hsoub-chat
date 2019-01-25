@@ -1,4 +1,9 @@
 /**
+ * Message Model.
+ */
+const Message = require('./models/message');
+
+/**
  * Json Web Token
  */
 const auth = require('./middlewares/auth');
@@ -30,6 +35,8 @@ exports.events = socket => {
         let message = {
             user_id: sender, content: data.content, date: new Date().getTime()
         };
+        
+        // Message.create(message);
 
         // Send message to target user.
         socket.to(receiver).emit('message', message);

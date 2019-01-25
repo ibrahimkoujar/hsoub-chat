@@ -68,15 +68,15 @@ class Chat extends React.Component {
 
     render(){
         if(!this.state.connected || !this.state.contacts || !this.state.messages){
-            return (<Spinner id="loader" color="primary" style={{ width: '3rem', height: '3rem' }} />);
+            return (<Spinner id="loader" color="success" />);
         }
         return (
-            <div className="chat">
-                <div className="row">
-                    <div className="col-4 pl-0">
-                        <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate}/>
-                    </div>
-                    <div className="col-8 pr-0">{this.renderChat()}</div>
+            <div className="row">
+                <div className="col-4 p-0">
+                    <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate}/>
+                </div>
+                <div className="col-8 conversation">
+                    {this.renderChat()}
                 </div>
             </div>
         );

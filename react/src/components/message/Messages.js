@@ -2,7 +2,7 @@ import React from "react";
 import IncomingMessage from "./IncomingMessage";
 import OutgoingMessage from "./OutgoingMessage";
 import Header from "./Header";
-import { Input, InputGroup , InputGroupAddon, Button } from 'reactstrap';
+import { Input } from 'reactstrap';
 
 class Messages extends React.Component {
 
@@ -31,16 +31,18 @@ class Messages extends React.Component {
 
     render() {
         return (
-            <div className="text-left">
+            <div>
                 <Header contact={this.props.contact} />
-                <div className="messages-list">{this.props.messages.map(this.renderMessage)}</div>
-                <div className="send-message">
-                    <InputGroup>
-                        <Input placeholder="اكتب رسالتك هنا" onChange={this.onMessageChange} value={this.state.message} />
-                        <InputGroupAddon addonType="append">
-                            <Button color="success" onClick={this.onSendMessage}>إرسال</Button>
-                        </InputGroupAddon>
-                    </InputGroup>
+                <div className="message-list">
+                    {this.props.messages.map(this.renderMessage)}
+                </div>
+                <div className="row reply">
+                    <div className="col-10 col-md-11">
+                        <Input type="textarea" rows="1" onChange={this.onMessageChange} value={this.state.message} placeholder="اكتب رسالتك هنا"/>
+                    </div>
+                    <div className="col-2  col-md-1 reply-icon">
+                        <i className="fa fa-send fa-2x" onClick={this.onSendMessage}></i>
+                    </div>
                 </div>
             </div>
         );

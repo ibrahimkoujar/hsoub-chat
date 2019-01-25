@@ -1,63 +1,62 @@
 * {
     font-family: 'Cairo', sans-serif;
+    direction: rtl;
 }
 
-body{
+html, body, div {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+}
+
+body {
     direction: rtl;
     background-color: #f5f5f5 !important;
+    text-align: right !important;
 }
 
-.navbar *{
-    font-size: 15px !important;
+textarea, input {
+    box-shadow: none !important;
 }
-.navbar .nav-link{
+
+.heading {
+    padding: 10px 16px 10px 15px;
+    height: 60px;
+    width: 100%;
+    background-color: #009688;
+    color: #fff;
+    z-index: 1000;
+}
+
+.sign-out {
+    margin-top: 5px;
     cursor: pointer;
-    padding: 0px;
-}
-.navbar .dropdown-item{
-    font-size: 12px !important;
-    text-align: right;
-}
+    float: left;
+  }
 
-
-.app {
-    text-align: center;
-    height: 100%
+.search {
+    height: 60px;
+    width: 100%;
 }
 
-.chat{
-    clear: both;
-    overflow: hidden;
-    background: #fff;
-}
-
-.pr-0{
-    padding-right: 0;
-}
-
-.pl-0{
-    padding-left: 0;
-}
-
-/* Contacts */
-.contact-list{
-    height: 100%;
-    border-left: 1px solid #c4c4c4;
+.contact-list {
+    background-color: #fff;
     overflow-y: auto;
+    border: 1px solid #f7f7f7;
+    height: calc(100% - 120px);
 }
-/* Contacts */
-.contacts{
-    height: 90vh;
-    overflow-y: auto;
-}
+
 .contact {
-    border-bottom: 1px solid #c4c4c4;
-    margin: 0;
-    padding: 18px 16px 10px;
+    position: relative;
+    padding: 10px !important;
+    border-bottom: 1px solid #f7f7f7;
+    height: 72px !important;
     cursor: pointer;
-    text-align: right;
-
 }
+
 .contact:hover {
     background: #f3f3f3
 }
@@ -67,14 +66,14 @@ body{
     width: 11%;
 }
 
-.contact h6 {
-    font-size: 15px;
+.contact .name {
+    font-size: 14px;
     color: #464646;
     margin: 0 0 8px 0;
 }
 
 .contact p {
-    font-size: 14px;
+    font-size: 12px;
     color: #989898;
     margin: auto;
 }
@@ -82,102 +81,101 @@ body{
 .contact .date{
     float: left;
     font-size: 12px;
-    margin: auto;
     direction: ltr;
+    color: #989898;
 }
 
-/*  Messages */
-.messages-list{
-    padding: 10px;
-    height: 84vh;
+/*Conversation*/
+.conversation {
+    padding: 0 !important;
+    height: 100%;
+    width: 100%;
+    border-right: 1px solid #e2e2e2;
     overflow-y: auto;
 }
 
-.outgoing-message{
-    overflow:hidden; margin:26px 0 26px;
-    text-align: right;
+.message-list {
+    overflow-y: auto;
+    height: calc(100% - 120px);
 }
 
-.outgoing-message .body {
-    float: right;
-    max-width: 55%;
+.message {
+    width: auto;
+    height: auto;
+    margin-top: 10px !important; 
+    font-size: 12px;
 }
 
-.outgoing-message p {
-    background: #ebebeb none repeat scroll 0 0;
-    border-radius: 15px 2px 15px 15px;
-    font-size: 13px;
-    margin: 0; color:#646464;
-    padding: 5px 10px 5px 12px;
-    width:100%;
+.message-text {
+    padding: 5px !important;
+    word-wrap:break-word;
+    font-weight: 200;
+    padding-bottom: 0 !important;
 }
 
-.outgoing-message .date {
-    color: #747474;
-    display: block;
-    font-size: 11px;
-    margin: 8px 0 0;
+.message-time {
+    color: #9a9a9a;
     direction: ltr;
-}
-
-
-.incoming-message{
-    overflow:hidden; margin:26px 0 26px;
-    text-align: left;
-}
-
-.incoming-message .body{
     display: inline-block;
-    margin-top: 10px;
-    padding: 0 0 0 10px;
-    vertical-align: top;
-    max-width: 55%;
 }
 
-.incoming-message p{
-    background: #007cff none repeat scroll 0 0;
-    border-radius: 2px 15px 15px 15px;
-    color: #fff;
-    font-size: 13px;
-    margin: 0;
-    padding: 5px 10px 5px 12px;
-    width: 100%;
-    text-align: right;
-}
-
-.incoming-message .date {
-    color: #747474;
-    display: block;
-    font-size: 11px;
-    margin: 8px 0 0;
-    direction: ltr;
-}
-
-.incoming-message img{
+.receiver {
+    width: auto !important;
+    padding: 4px 10px 7px !important;
+    border-radius: 10px 10px 0 10px;
+    background: #ffffff;
+    word-wrap: break-word;
     display: inline-block;
-    width: 6%;
+    margin-right: 11px !important;
+}
+
+.sender {
     float: left;
+    width: auto !important;
+    background: #dcf8c6;
+    padding: 4px 10px 7px !important;
+    border-radius: 10px 10px 10px 0;
+    word-wrap: break-word;
+    margin-left: 11px !important;
 }
 
-/*  Send Message */
-.send-message{
-    margin-top: 11px;
-}
-.send-message input{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    height: 40px;
-    box-shadow: none !important;
-}
-.send-message button{
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+
+/*Reply*/
+.reply {
+    height: 60px;
+    width: 100%;
+    background-color: #f5f1ee;
+    padding: 10px 5px 10px 5px !important;
+    margin: 0 !important;
+    z-index: 1000;
 }
 
+.reply textarea {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    padding: 5px !important;
+    text-indent: 5px;
+    height: 100%;
+    font-size: 16px;
+}
+  
+.reply-icon i {
+    text-align: center;
+    padding: 5px !important;
+    color: #93918f;
+    cursor: pointer;
+}
+  
 /*
  * login
  */
-.form-auth .form-control {
+ .card{
+    height: auto;
+    text-align: center;
+ }
+
+ .form-auth .form-control {
     position: relative;
     box-sizing: border-box;
     height: auto;
@@ -189,7 +187,8 @@ body{
     position: absolute;
     top: 40%;
     left: 47%;
-    fill: #007cff !important;
+    width: 3rem;
+    height: 3rem;
 }
 
 #page-404 {

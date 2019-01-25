@@ -18,14 +18,12 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div className="app">
-                    <Switch>
-                        <AppRoute path="/" exact component={Chat} can={Auth.auth} redirect='/login' />
-                        <AppRoute path="/login" component={Login} can={Auth.guest} redirect='/' />
-                        <AppRoute path="/register" component={Register} can={Auth.guest} redirect='/' />
-                        <AppRoute component={NotFound} />
-                    </Switch>
-                </div>
+                <Switch>
+                    <AppRoute path="/" exact component={Chat} can={Auth.auth} redirect='/login' />
+                    <AppRoute path="/login" component={Login} can={Auth.guest} redirect='/' />
+                    <AppRoute path="/register" component={Register} can={Auth.guest} redirect='/' />
+                    <AppRoute component={NotFound} />
+                </Switch>
             </Router>
         );
     }

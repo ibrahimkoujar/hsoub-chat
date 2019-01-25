@@ -1,8 +1,7 @@
 import React from "react";
-import { Navbar, NavbarBrand, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import Auth from 'Auth';
 import { withRouter } from "react-router-dom";
-
+import Avatar from "assets/avatar.png";
 
 class Header extends React.Component {
 
@@ -19,15 +18,18 @@ class Header extends React.Component {
 
     render() {
         return (
-            <Navbar color="primary" className="text-white">
-                <NavbarBrand>{this.props.contact ? this.props.contact.name : ''}</NavbarBrand>
-                <UncontrolledDropdown setActiveFromChild>
-                    <DropdownToggle tag="a" className="nav-link">حسابي</DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem onClick={this.onLogout}>تسجيل االخروج</DropdownItem>
-                    </DropdownMenu>
-               </UncontrolledDropdown>
-            </Navbar>
+            <div className="row heading">
+                <div className="col-1 d-none d-md-block">
+                    <img src={Avatar} width="40" className="rounded-circle" alt=""/>
+                </div>
+                <div className="col-9 pt-2 pr-0">
+                    {this.props.contact ? this.props.contact.name : ''}
+                </div>
+                <div className="col-2">
+                <i className="fa fa-sign-out fa-2x sign-out" onClick={this.onLogout}></i>
+                </div>
+            </div>
+
         );
     }
 

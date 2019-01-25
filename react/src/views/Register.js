@@ -50,7 +50,7 @@ class Register extends React.Component {
                 <Form className="form-auth" onSubmit={this.onSubmit}>
 
                     <img src={Logo} alt="" width="200" />
-                    <h5 class="mb-4 text-center">إنشاء حساب جديد</h5>
+                    <h5 className="mb-4 text-center">إنشاء حساب جديد</h5>
 
                     <FormGroup>
                         <Input placeholder="الاسم" value={this.state.name} onChange={this.onNameChange} required autoFocus />
@@ -67,7 +67,7 @@ class Register extends React.Component {
                     <p className="mt-3 mb-2 text-muted">
                         <small><Link to="/login">تسجيل الدخول</Link></small>
                     </p>
-                    <p class="mt-3 mb-3 text-muted">&copy; 2018 - 2019</p>
+                    <p className="mt-3 mb-3 text-muted">&copy; 2018 - 2019</p>
 
                 </Form>
 
