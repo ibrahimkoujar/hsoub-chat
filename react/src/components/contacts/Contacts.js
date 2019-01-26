@@ -7,15 +7,13 @@ class Contacts extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { contacts: this.props.contacts };
+        this.state = { contacts: this.props.contacts, search: '' };
         this.onSearch =this.onSearch.bind(this);
     }
 
     onSearch(e){
-        let word = e.target.value;
-        this.setState({
-            contacts: this.props.contacts.filter(e => e.name.includes(word))
-        });
+        let search = e.target.value;
+        this.setState({search});
     }
 
     render(){
@@ -24,13 +22,16 @@ class Contacts extends React.Component {
                 <Header />
                 <Search onSearch={this.onSearch} />
                 <div className="contact-list">
-                    {this.state.contacts.map((contact, index) => this.renderContact(contact, index) )}
+                    {this.props.contacts.map((contact, index) => this.renderContact(contact, index) )}
                 </div>
             </div>
         );
     }
 
     renderContact(contact, index){
+        if(!contact.name.includes(this.state.search)){
+            return;
+        }
         let messages = this.props.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
         let lastMessage = messages[messages.length - 1];
         return(

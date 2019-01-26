@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const createError = require('http-errors');
-const io = require('socket.io')();
+io = require('socket.io')();
 
 /**
  * Routers

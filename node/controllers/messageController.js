@@ -3,7 +3,6 @@
  */
 const Message = require('../models/message');
 
-
 /**
  * User login.
  * @param req.body {username, password}

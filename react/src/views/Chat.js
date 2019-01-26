@@ -5,18 +5,18 @@ import Messages from 'components/message/Messages'
 import socketIOClient from 'socket.io-client'
 import axios from 'axios';
 import Auth from 'Auth';
+import { log } from "util";
 
 class Chat extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            user: Auth.getUser()
-        };
+        this.state = { user: Auth.getUser() };
         this.onSendMessage = this.onSendMessage.bind(this);
         this.onChatNavigate = this.onChatNavigate.bind(this);
         this.onNewMessage = this.onNewMessage.bind(this);
         this.onSentMessage = this.onSentMessage.bind(this);
+        this.onNewUser = this.onNewUser.bind(this);
     }
 
     componentDidMount(){
@@ -25,6 +25,7 @@ class Chat extends React.Component {
         socket.on("disconnect", () =>this.setState({connected: false}));
         socket.on("message", this.onNewMessage);
         socket.on("sent_message", this.onSentMessage);
+        socket.on("new_user", this.onNewUser);
         this.setState({socket});
         this.init();
     }
@@ -58,6 +59,12 @@ class Chat extends React.Component {
         this.setState({messages});
     }
 
+    onNewUser(user){
+        console.log(user);
+        let contacts = this.state.contacts.concat(user);
+        this.setState({contacts});
+    }
+    
     onSendMessage(message){
         let messages = this.state.messages.concat(message);
         this.setState({messages});
@@ -85,6 +92,9 @@ class Chat extends React.Component {
     }
 
     renderChat(){
+        if(this.state.contacts.length < 1){
+            return;
+        }
         let contact = this.state.contact ? this.state.contact : this.state.contacts[0];
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
         return <Messages user={this.state.user} messages={messages} sender={this.onSendMessage} contact={contact} />

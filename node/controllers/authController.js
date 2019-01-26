@@ -39,6 +39,7 @@ exports.register = (req, res, next) => {
     User.create(data)
     .then(user => {
         let data = user.signJwt();
+        io.emit('new_user', data);
         res.json(data);
     })
     .catch(next);
