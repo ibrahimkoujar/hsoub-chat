@@ -1,11 +1,11 @@
 Hsoub-chat Application
 
-## Backend
-
-### `Requirments`
+## `Requirments`
 * NodeJs
 * MongoDB
 * GIT
+
+## Backend
 
 ### `Setup`
 In the project directory, go to node dir:
@@ -13,9 +13,6 @@ In the project directory, go to node dir:
 * Start server by `npm start`
 
 ## Frontend 
-
-### `Requirments`
-* NodeJs
 
 ### `Setup`
 In the project directory, go to react dir:
