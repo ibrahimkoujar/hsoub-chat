@@ -4,8 +4,8 @@
 const Message = require('../models/message');
 
 /**
- * User login.
- * @param req.body {username, password}
+ * Get all user messages
+ * @param req
  * @param res
  * @param next
  */

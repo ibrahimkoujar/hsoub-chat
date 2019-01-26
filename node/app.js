@@ -24,7 +24,7 @@ const app = express();
 app.io = io;
 
 /**
- * Express Middlewares.
+ * Express Middleware's.
  */
 app.use(logger('dev'));
 app.use(express.json());
@@ -45,7 +45,7 @@ app.use('/user', userRouter);
 app.use((req, res, next) => next(createError(404)));
 
 app.use((err, req, res, next) => {
-    if(err.name == 'MongoError' || err.name == 'ValidationError' || err.name == 'CastError'){
+    if(err.name === 'MongoError' || err.name === 'ValidationError' || err.name === 'CastError'){
         err.status = 422;
     }
     res.status(err.status || 500).json({message: err.message || "some error occurred."});

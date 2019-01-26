@@ -25,7 +25,7 @@ class Messages extends React.Component {
         this.setState({message: ''});
 
         // Scroll to bottom
-        var objDiv = document.getElementById("message-list");
+        let objDiv = document.getElementById("message-list");
         objDiv.scrollTop = objDiv.scrollHeight;
     }
 
@@ -45,7 +45,7 @@ class Messages extends React.Component {
                         <Input type="textarea" rows="1" onChange={this.onMessageChange} value={this.state.message} placeholder="اكتب رسالتك هنا"/>
                     </div>
                     <div className="col-2  col-md-1 reply-icon">
-                        <i className="fa fa-send fa-2x" onClick={this.onSendMessage}></i>
+                        <i className="fa fa-send fa-2x" onClick={this.onSendMessage} />
                     </div>
                 </div>
             </div>

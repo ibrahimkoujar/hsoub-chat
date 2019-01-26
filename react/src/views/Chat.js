@@ -5,7 +5,6 @@ import Messages from 'components/message/Messages'
 import socketIOClient from 'socket.io-client'
 import axios from 'axios';
 import Auth from 'Auth';
-import { log } from "util";
 
 class Chat extends React.Component {
 
@@ -39,12 +38,12 @@ class Chat extends React.Component {
             this.setState({messages: res.data});
         })
         .catch(err => {
-        })
+        });
         axios.get('/user').then(res => {
             this.setState({contacts: res.data});
         })
         .catch(err => {
-        })
+        });
     }
 
     onNewMessage(message){

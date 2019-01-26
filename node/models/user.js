@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 /**
- * jsonwebtoken Module.
+ * JsonWebToken Module.
  */
 const jwt = require('jsonwebtoken');
 
@@ -50,8 +50,8 @@ ModelSchema.pre('save', function(next) {
 });
 
 /**
- * Chceck if givien password is true.
- * @param next
+ * Check if given password is correct.
+ * @param password
  */
 ModelSchema.methods.checkPassword = function(password){
     let user = this;

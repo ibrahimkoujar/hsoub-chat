@@ -4,8 +4,7 @@ const Auth = {
 
     init: () => {
         let user = JSON.parse(localStorage.getItem('user'));
-        let token = user !== null ? user.token : '';
-        axios.defaults.headers.common['Authorization'] = token;
+        axios.defaults.headers.common['Authorization'] = user !== null ? user.token : '';
     },
 
     login: (user) => {
@@ -35,6 +34,6 @@ const Auth = {
         return JSON.parse(localStorage.getItem('user'));
     },
 
-}
+};
 
 export default Auth;

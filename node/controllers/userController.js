@@ -4,14 +4,8 @@
 const User = require('../models/user');
 
 /**
- * HttpErrors Module.
- */
-const createError = require('http-errors');
-
-
-/**
- * User login.
- * @param req.body {username, password}
+ * Get all users
+ * @param req
  * @param res
  * @param next
  */

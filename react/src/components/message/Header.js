@@ -11,7 +11,7 @@ class Header extends React.Component {
         this.onLogout = this.onLogout.bind(this)
     }
 
-    onLogout(e){
+    onLogout(){
         Auth.logout();
         this.props.history.push('/');
     }
@@ -26,7 +26,7 @@ class Header extends React.Component {
                     {this.props.contact ? this.props.contact.name : ''}
                 </div>
                 <div className="col-2">
-                <i className="fa fa-sign-out fa-2x sign-out" onClick={this.onLogout}></i>
+                    <i className="fa fa-sign-out fa-2x sign-out" onClick={this.onLogout}/>
                 </div>
             </div>
 

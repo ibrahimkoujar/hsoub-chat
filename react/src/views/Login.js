@@ -41,7 +41,7 @@ class Login extends React.Component {
             <Card className="mx-auto col-lg-3 col-sm-6 mt-4">
                 <Form className="form-auth" onSubmit={this.onSubmit}>
                     <img src={logo} alt="" width="200"  />
-                    <h5 class="mb-4">الرجاء تسجيل الدخول</h5>
+                    <h5 className="mb-4">الرجاء تسجيل الدخول</h5>
                     <FormGroup>
                         <Input placeholder="اسم المستخدم" value={this.state.username} onChange={this.onUsernameChange} required autoFocus />
                     </FormGroup>
@@ -54,7 +54,7 @@ class Login extends React.Component {
                         <small><Link to="/register">حساب جديد</Link></small>
                     </p>
 
-                    <p class="mt-3 mb-3 text-muted">&copy; 2018 - 2019</p>
+                    <p className="mt-3 mb-3 text-muted">&copy; 2018 - 2019</p>
                 </Form>
 
             </Card>

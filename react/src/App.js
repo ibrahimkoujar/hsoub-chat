@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Chat from './views/Chat';
 import Register from './views/Register'
@@ -8,7 +8,7 @@ import NotFound from './views/NotFound'
 import AppRoute from 'AppRoute';
 import Auth from 'Auth';
 
-class App extends Component {
+class App extends React.Component {
 
     constructor(props) {
         super(props);
