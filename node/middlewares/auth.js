@@ -32,7 +32,8 @@ exports.authenticated  = (req, res, next) => {
 exports.guest = (req, res, next) => {
     let token = req.headers['authorization'];
     jwt.verify(token, process.env.JWT_SECRET, err => {
-        err ? next() : throw createError(403);
+        if(err) return next();
+        throw createError(403);
     });
 };
 
