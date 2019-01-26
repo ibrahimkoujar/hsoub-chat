@@ -94,7 +94,7 @@ textarea, input {
     overflow-y: auto;
 }
 
-.message-list {
+#message-list {
     overflow-y: auto;
     height: calc(100% - 120px);
 }

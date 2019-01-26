@@ -10,7 +10,9 @@ class Chat extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            user: Auth.getUser()
+        };
         this.onSendMessage = this.onSendMessage.bind(this);
         this.onChatNavigate = this.onChatNavigate.bind(this);
         this.onNewMessage = this.onNewMessage.bind(this);
@@ -84,8 +86,8 @@ class Chat extends React.Component {
 
     renderChat(){
         let contact = this.state.contact ? this.state.contact : this.state.contacts[0];
-        let messages = this.state.messages.filter(e => e.user_id === contact.id);
-        return <Messages messages={messages} sender={this.onSendMessage} contact={contact} />
+        let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
+        return <Messages user={this.state.user} messages={messages} sender={this.onSendMessage} contact={contact} />
     }
 
 }

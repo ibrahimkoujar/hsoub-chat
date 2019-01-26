@@ -5,6 +5,10 @@ import Search from "./Search";
 
 class Contacts extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     render(){
         return (
             <div>
@@ -18,7 +22,7 @@ class Contacts extends React.Component {
     }
 
     renderContact(contact, index){
-        let messages = this.props.messages.filter(e => e.user_id === contact.id);
+        let messages = this.props.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
         let lastMessage = messages[messages.length - 1];
         return(
             <div className="contact" key={index} onClick={this.props.chatNavigate.bind(this, contact, index)}>

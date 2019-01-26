@@ -11,18 +11,22 @@ class Messages extends React.Component {
         this.state = { message: '' };
         this.onMessageChange = this.onMessageChange.bind(this);
         this.onSendMessage = this.onSendMessage.bind(this);
+        this.renderMessage = this.renderMessage.bind(this);
     }
 
     onSendMessage(e){
         if (!this.state.message || !this.props.contact) return;
         let message = {
-            user_id: this.props.contact.id,
-            incoming: false,
+            receiver: this.props.contact.id,
             content: this.state.message,
             date: new Date().getTime()
         };
         this.props.sender(message);
         this.setState({message: ''});
+
+        // Scroll to bottom
+        var objDiv = document.getElementById("message-list");
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
 
     onMessageChange(e){
@@ -33,7 +37,7 @@ class Messages extends React.Component {
         return (
             <div>
                 <Header contact={this.props.contact} />
-                <div className="message-list">
+                <div id="message-list">
                     {this.props.messages.map(this.renderMessage)}
                 </div>
                 <div className="row reply">
@@ -49,7 +53,7 @@ class Messages extends React.Component {
     }
 
     renderMessage(message, index){
-        if (message.incoming === true) {
+        if (message.receiver === this.props.user.id) {
             return <IncomingMessage key={index} message={message.content} date={message.date} />
         }
         return <OutgoingMessage key={index} message={message.content} date={message.date} />

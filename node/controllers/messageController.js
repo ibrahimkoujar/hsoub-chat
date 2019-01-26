@@ -1,12 +1,7 @@
 /**
  * User Model.
  */
-const User = require('../models/user');
-
-/**
- * HttpErrors Module.
- */
-const createError = require('http-errors');
+const Message = require('../models/message');
 
 
 /**
@@ -16,6 +11,9 @@ const createError = require('http-errors');
  * @param next
  */
 exports.all = (req, res, next) => {
-    let data = [];
-    res.json(data);
+    let userId = req.user.id;
+    Message.find()
+    .or([{sender: userId}, {receiver: userId}])
+    .then(messages => res.json(messages))
+    .catch(next);
 };

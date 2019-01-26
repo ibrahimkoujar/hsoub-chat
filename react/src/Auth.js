@@ -31,6 +31,10 @@ const Auth = {
         return user !== null ? user.token : '';
     },
 
+    getUser: () => {
+        return JSON.parse(localStorage.getItem('user'));
+    },
+
 }
 
 export default Auth;

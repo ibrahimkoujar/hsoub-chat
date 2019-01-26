@@ -25,24 +25,24 @@ exports.events = socket => {
 
     // User message event.
     socket.on("message", data => {
+
         // Sender ID
         let sender = socket.user.id;
 
         // Receiver ID
-        let receiver = data.user_id;
+        let receiver = data.receiver;
 
         // Message body
         let message = {
-            user_id: sender, content: data.content, date: new Date().getTime()
+            sender: sender, receiver: receiver, content: data.content, date: new Date().getTime()
         };
         
-        // Message.create(message);
+        Message.create(message);
 
         // Send message to target user.
         socket.to(receiver).emit('message', message);
 
         // Send message to sender sockets.
-        message.user_id = receiver;
         socket.broadcast.to(sender).emit('sent_message', message);
 
     });
