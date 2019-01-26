@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import  { Card, Form, FormGroup, Input, Button, Alert } from "reactstrap";
+import { Card, Form, Input, Button } from "reactstrap";
 import Error from "components/Error";
 import axios from "axios";
 import Auth from "Auth";
@@ -8,18 +8,13 @@ import logo from 'assets/logo.png';
 
 class Login extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { username: '', password: '', error: '' };
-        this.onFormChange = this.onFormChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+    state = {};
 
-    onFormChange(e){
-        this.setState({ [e.target.name]: e.target.value, error: '' });
-    }
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value, error: null });
+    };
 
-    onSubmit(e){
+    onSubmit = e => {
         e.preventDefault();
         let data = { username: this.state.username, password: this.state.password };
         axios.post('/auth', data).then(res => {
@@ -28,7 +23,7 @@ class Login extends React.Component {
         }).catch(err => {
             this.setState({error: err.response.data.message })
         });
-    }
+    };
 
     render(){
         return (
@@ -37,23 +32,12 @@ class Login extends React.Component {
                     <img src={logo} alt="" width="200"  />
                     <h5 className="mb-4">الرجاء تسجيل الدخول</h5>
                     <Error error={this.state.error} />
-                    <FormGroup>
-                        <Input value={this.state.username} name="username" onChange={this.onFormChange} placeholder="اسم المستخدم" required autoFocus />
-                    </FormGroup>
-
-                    <FormGroup>
-                        <Input type="password"  value={this.state.password} name="password" onChange={this.onFormChange} placeholder="كلمة المرور" required />
-                    </FormGroup>
-
-                    <Button color="primary" block> تسجيل الدخول </Button>
-
-                    <p className="mt-3 mb-2 text-muted">
-                        <small><Link to="/register">حساب جديد</Link></small>
-                    </p>
-
+                    <Input value={this.state.username} name="username" onChange={this.onChange} placeholder="اسم المستخدم" required autoFocus />
+                    <Input type="password"  value={this.state.password} name="password" onChange={this.onChange} placeholder="كلمة المرور" required />
+                    <Button color="primary" block className="mb-3"> تسجيل الدخول </Button>
+                    <small><Link to="/register">حساب جديد</Link></small>
                     <p className="mt-3 mb-3 text-muted">&copy; 2018 - 2019</p>
                 </Form>
-
             </Card>
         );
     }

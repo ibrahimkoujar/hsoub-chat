@@ -1,22 +1,14 @@
 import React from "react";
-import { Spinner } from 'reactstrap';
-import Contacts from 'components/contacts/Contacts'
-import Messages from 'components/message/Messages'
-import socketIOClient from 'socket.io-client'
-import axios from 'axios';
+import socketIOClient from 'socket.io-client';
 import Auth from 'Auth';
+import axios from 'axios';
+import { Spinner } from 'reactstrap';
+import Contacts from 'components/contacts/Contacts';
+import Messages from 'components/message/Messages';
 
 class Chat extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { user: Auth.getUser() };
-        this.onSendMessage = this.onSendMessage.bind(this);
-        this.onChatNavigate = this.onChatNavigate.bind(this);
-        this.onNewMessage = this.onNewMessage.bind(this);
-        this.onSentMessage = this.onSentMessage.bind(this);
-        this.onNewUser = this.onNewUser.bind(this);
-    }
+    state = { user: Auth.getUser() };
 
     componentDidMount(){
         let socket = socketIOClient(process.env.REACT_APP_SOCKET, {query: "token=" + Auth.getToken()});
@@ -33,40 +25,40 @@ class Chat extends React.Component {
         this.state.socket.disconnect();
     }
 
-    init(){
+    init = () => {
         axios.get('/message').then(res => {
             this.setState({messages: res.data});
         });
         axios.get('/user').then(res => {
             this.setState({contacts: res.data});
         });
-    }
+    };
 
-    onNewMessage(message){
+    onNewMessage = message => {
         let messages = this.state.messages.concat(message);
         this.setState({messages});
-    }
+    };
 
-    onSentMessage(message){
+    onSentMessage = message => {
         let messages = this.state.messages.concat(message);
         this.setState({messages});
-    }
+    };
 
-    onNewUser(user){
+    onNewUser = user => {
         console.log(user);
         let contacts = this.state.contacts.concat(user);
         this.setState({contacts});
-    }
+    };
     
-    onSendMessage(message){
+    onSendMessage = message => {
         let messages = this.state.messages.concat(message);
         this.setState({messages});
         this.state.socket.emit('message', message);
-    }
+    };
 
-    onChatNavigate(contact, index, event){
+    onChatNavigate = contact => {
         this.setState({contact: contact});
-    }
+    };
 
     render(){
         if(!this.state.connected || !this.state.contacts || !this.state.messages){
@@ -84,14 +76,14 @@ class Chat extends React.Component {
         );
     }
 
-    renderChat(){
+    renderChat = () => {
         if(this.state.contacts.length < 1){
             return;
         }
         let contact = this.state.contact ? this.state.contact : this.state.contacts[0];
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
         return <Messages user={this.state.user} messages={messages} sender={this.onSendMessage} contact={contact} />
-    }
+    };
 
 }
 

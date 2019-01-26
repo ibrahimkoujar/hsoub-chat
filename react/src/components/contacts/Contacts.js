@@ -5,16 +5,12 @@ import Search from "./Search";
 
 class Contacts extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { contacts: this.props.contacts, search: '' };
-        this.onSearch =this.onSearch.bind(this);
-    }
+    state = { contacts: this.props.contacts, search: '' };
 
-    onSearch(e){
+    onSearch = e => {
         let search = e.target.value;
         this.setState({search});
-    }
+    };
 
     render(){
         return (
@@ -28,14 +24,14 @@ class Contacts extends React.Component {
         );
     }
 
-    renderContact(contact, index){
+    renderContact = (contact, index) => {
         if(!contact.name.includes(this.state.search)){
             return;
         }
         let messages = this.props.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
         let lastMessage = messages[messages.length - 1];
         return(
-            <div className="contact" key={index} onClick={this.props.chatNavigate.bind(this, contact, index)}>
+            <div className="contact" key={index} onClick={this.props.chatNavigate.bind(this, contact)}>
                 <Contact name={contact.name} message={lastMessage} />
             </div>
         );

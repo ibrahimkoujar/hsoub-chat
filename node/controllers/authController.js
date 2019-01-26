@@ -15,9 +15,10 @@ const createError = require('http-errors');
  * @param next
  */
 exports.login = (req, res, next) => {
-    User.findOne({username: req.body.username})
+    const { username, password} = req.body;
+    User.findOne({username})
     .then(user => {
-        if (!user || !user.checkPassword(req.body.password)) throw createError(401);
+        if (!user || !user.checkPassword(password)) throw createError(401, "Wrong username or password");
         res.json(user.signJwt());
     })
     .catch(next);
@@ -40,7 +41,6 @@ exports.register = (req, res, next) => {
 };
 
 const sendNewUser = (user) => {
-    io.emit('new_user', {
-        id: user.id, name: user.name, username: user.username, avatar: user.avatar
-    });
+    let data = { name, username, password, avatar } = user;
+    io.emit('new_user', data);
 };

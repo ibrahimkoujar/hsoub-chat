@@ -100,7 +100,6 @@ textarea, input {
 }
 
 .message {
-    width: auto;
     height: auto;
     margin-top: 10px !important; 
     font-size: 12px;
@@ -143,7 +142,7 @@ textarea, input {
 /*Reply*/
 .reply {
     height: 60px;
-    width: 100%;
+    width: auto;
     background-color: #f5f1ee;
     padding: 10px 5px 10px 5px !important;
     margin: 0 !important;
@@ -151,22 +150,19 @@ textarea, input {
 }
 
 .reply textarea {
-    width: 100%;
     resize: none;
     overflow: hidden;
-    padding: 5px !important;
-    text-indent: 5px;
     height: 100%;
     font-size: 16px;
+    border-radius: 0;
 }
-  
-.reply-icon i {
-    text-align: center;
-    padding: 5px !important;
-    color: #93918f;
-    cursor: pointer;
+.reply .input-group-append{
+    width: auto;
 }
-  
+.reply button{
+    border-radius: 0;
+}
+
 /*
  * login
  */
@@ -181,6 +177,7 @@ textarea, input {
     height: auto;
     padding: 10px;
     font-size: 16px;
+    margin-bottom: 1rem;
 }
 
 #loader{

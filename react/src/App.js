@@ -1,10 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch } from "react-router-dom";
-import Chat from './views/Chat';
-import Register from './views/Register'
-import Login from './views/Login'
-import NotFound from './views/NotFound'
-
+import {Chat, Login, Register, NotFound } from 'views';
 import AppRoute from 'AppRoute';
 import Auth from 'Auth';
 

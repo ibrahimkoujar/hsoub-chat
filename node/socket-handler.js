@@ -19,7 +19,7 @@ exports.events = socket => {
     console.log("New client connected: " + socket.user.username);
 
     // Log user disconnected.
-    socket.on("disconnect", state => {
+    socket.on("disconnect", () => {
         console.log("Client disconnected: " + socket.user.username);
     });
 
