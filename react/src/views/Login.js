@@ -1,6 +1,7 @@
 import React from "react";
-import  { Card, Form, FormGroup, Input, Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import  { Card, Form, FormGroup, Input, Button, Alert } from "reactstrap";
+import Error from "components/Error";
 import axios from "axios";
 import Auth from "Auth";
 import logo from 'assets/logo.png';
@@ -9,20 +10,13 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { username: '', password: '' };
-        this.onUsernameChange = this.onUsernameChange.bind(this);
-        this.onPassowrdChange = this.onPassowrdChange.bind(this);
+        this.state = { username: '', password: '', error: '' };
+        this.onFormChange = this.onFormChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onUsernameChange(e){
-        let username = e.target.value;
-        this.setState({ username });
-    }
-
-    onPassowrdChange(e){
-        let password = e.target.value;
-        this.setState({ password });
+    onFormChange(e){
+        this.setState({ [e.target.name]: e.target.value, error: '' });
     }
 
     onSubmit(e){
@@ -32,7 +26,7 @@ class Login extends React.Component {
             Auth.login(res.data);
             this.props.history.push('/');
         }).catch(err => {
-            alert();
+            this.setState({error: err.response.data.message })
         });
     }
 
@@ -42,12 +36,15 @@ class Login extends React.Component {
                 <Form className="form-auth" onSubmit={this.onSubmit}>
                     <img src={logo} alt="" width="200"  />
                     <h5 className="mb-4">الرجاء تسجيل الدخول</h5>
+                    <Error error={this.state.error} />
                     <FormGroup>
-                        <Input placeholder="اسم المستخدم" value={this.state.username} onChange={this.onUsernameChange} required autoFocus />
+                        <Input value={this.state.username} name="username" onChange={this.onFormChange} placeholder="اسم المستخدم" required autoFocus />
                     </FormGroup>
+
                     <FormGroup>
-                        <Input type="password" placeholder="كلمة المرور" value={this.state.password} onChange={this.onPassowrdChange} required />
+                        <Input type="password"  value={this.state.password} name="password" onChange={this.onFormChange} placeholder="كلمة المرور" required />
                     </FormGroup>
+
                     <Button color="primary" block> تسجيل الدخول </Button>
 
                     <p className="mt-3 mb-2 text-muted">

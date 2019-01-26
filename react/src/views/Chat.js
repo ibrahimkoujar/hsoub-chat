@@ -36,24 +36,18 @@ class Chat extends React.Component {
     init(){
         axios.get('/message').then(res => {
             this.setState({messages: res.data});
-        })
-        .catch(err => {
         });
         axios.get('/user').then(res => {
             this.setState({contacts: res.data});
-        })
-        .catch(err => {
         });
     }
 
     onNewMessage(message){
-        message.incoming = true;
         let messages = this.state.messages.concat(message);
         this.setState({messages});
     }
 
     onSentMessage(message){
-        message.incoming = false;
         let messages = this.state.messages.concat(message);
         this.setState({messages});
     }
