@@ -194,3 +194,8 @@ textarea, input {
 #page-404 {
     height: 100vh;
 }
+
+#page-404 div {
+    height: auto;
+    width: auto;
+}
