@@ -7,15 +7,24 @@ class Contacts extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = { contacts: this.props.contacts };
+        this.onSearch =this.onSearch.bind(this);
+    }
+
+    onSearch(e){
+        let word = e.target.value;
+        this.setState({
+            contacts: this.props.contacts.filter(e => e.name.includes(word))
+        });
     }
 
     render(){
         return (
             <div>
                 <Header />
-                <Search />
+                <Search onSearch={this.onSearch} />
                 <div className="contact-list">
-                    {this.props.contacts.map((contact, index) => this.renderContact(contact, index) )}
+                    {this.state.contacts.map((contact, index) => this.renderContact(contact, index) )}
                 </div>
             </div>
         );

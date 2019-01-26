@@ -5,7 +5,7 @@ const Search = props => {
     return (
         <div className="search p-2">
             <FormGroup>
-                <Input />
+                <Input onChange={props.onSearch.bind(this)} />
             </FormGroup>
           </div>
     );
