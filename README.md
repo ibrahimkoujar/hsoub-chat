@@ -1,20 +1,20 @@
 Hsoub-chat Application
 
-## `Requirments`
+## Requirements
 * NodeJs
 * MongoDB
 * GIT
 
 ## Backend
 
-### `Setup`
+### Setup
 In the project directory, go to node dir:
-* Install dependinces by `npm install`
+* Install dependencies by `npm install`
 * Start server by `npm start`
 
 ## Frontend 
 
-### `Setup`
+### Setup
 In the project directory, go to react dir:
-* Install dependinces by `npm install`
+* Install dependencies by `npm install`
 * Start application by `npm start`
