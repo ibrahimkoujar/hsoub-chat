@@ -9,13 +9,8 @@ const User = require('../models/user');
 const createError = require('http-errors');
 
 /**
- * JsonWebToken Module.
- */
-const jwt = require('jsonwebtoken');
-
-/**
  * User login.
- * @param req.body {username, password}
+ * @param req {username, password}
  * @param res
  * @param next
  */
@@ -23,24 +18,29 @@ exports.login = (req, res, next) => {
     User.findOne({username: req.body.username})
     .then(user => {
         if (!user || !user.checkPassword(req.body.password)) throw createError(401);
-        let data = user.signJwt();
-        res.json(data);
-    }).catch(next);
+        res.json(user.signJwt());
+    })
+    .catch(next);
 };
 
 /**
  * User Registration.
- * @param req.body {username, password}
+ * @param req {name, username, password}
  * @param res
  * @param next
  */
 exports.register = (req, res, next) => {
-    let data = { name, username, password } = req.body
+    let data = { name, username, password } = req.body;
     User.create(data)
     .then(user => {
-        let data = user.signJwt();
-        io.emit('new_user', data);
-        res.json(data);
+        sendNewUser(user);
+        res.json(user.signJwt());
     })
     .catch(next);
+};
+
+const sendNewUser = (user) => {
+    io.emit('new_user', {
+        id: user.id, name: user.name, username: user.username, avatar: user.avatar
+    });
 };
