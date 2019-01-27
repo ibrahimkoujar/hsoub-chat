@@ -1,6 +1,9 @@
 import React from "react";
 import Avatar from "assets/avatar.png";
 
+/**
+ * Contacts Header.
+ */
 const Header = props => (
     <div className="row heading">
         <div className="col-2 d-none d-md-block">

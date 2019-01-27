@@ -7,10 +7,15 @@ class Contacts extends React.Component {
 
     state = { contacts: this.props.contacts, search: '' };
 
-    onSearch = e => this.setState(
-        {search: e.target.value}
-    );
+    /**
+     * Contacts search handler.
+     * @param e
+     */
+    onSearch = e => this.setState({search: e.target.value});
 
+    /**
+     * Render component.
+     */
     render(){
         return (
             <div>
@@ -23,6 +28,11 @@ class Contacts extends React.Component {
         );
     }
 
+    /**
+     * Render single contact.
+     * @param contact
+     * @param index
+     */
     renderContact = (contact, index) => {
         if(!contact.name.includes(this.state.search)){
             return;

@@ -1,6 +1,9 @@
 import React from "react";
 import {Button, Input, InputGroup, InputGroupAddon} from "reactstrap";
 
+/**
+ * Message Form.
+ */
 const MessageForm = props => (
     <div className="reply">
         <InputGroup>

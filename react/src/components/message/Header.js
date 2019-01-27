@@ -3,6 +3,9 @@ import { withRouter } from "react-router-dom";
 import Auth from 'Auth';
 import Avatar from "assets/avatar.png";
 
+/**
+ * Chat Header.
+ */
 const Header = props => {
 
     const logout = () => {

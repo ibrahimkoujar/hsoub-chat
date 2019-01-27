@@ -10,10 +10,19 @@ class Register extends React.Component {
 
     state = {name: '', username: '', password: ''};
 
+
+    /**
+     * Change form handler
+     * @param e
+     */
     onChange = e => this.setState({
         [e.target.name]: e.target.value, error: null
     });
 
+    /**
+     * Form submit handler.
+     * @param e
+     */
     onSubmit = e => {
         e.preventDefault();
         let data = {
@@ -28,6 +37,9 @@ class Register extends React.Component {
         });
     };
 
+    /**
+     * Render page.
+     */
     render(){
         return (
             <Card className="mx-auto col-lg-3 col-sm-6 mt-4">

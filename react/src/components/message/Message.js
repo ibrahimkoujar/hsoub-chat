@@ -1,6 +1,9 @@
 import React from "react";
 import moment from 'moment';
 
+/**
+ * Message item.
+ */
 const Message = props => (
     <div className="message">
         <div className={props.outgoing ? 'sender' : 'receiver' }>

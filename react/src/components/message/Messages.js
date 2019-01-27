@@ -7,6 +7,18 @@ class Messages extends React.Component {
 
     state = { };
 
+    /**
+     * Change message handler
+     * @param e
+     */
+    onChange = e => {
+        this.props.sendType();
+        this.setState({message: e.target.value});
+    };
+
+    /**
+     * Send message handler
+     */
     onSend = () => {
         if (!this.state.message || !this.props.contact) return;
         let message = {
@@ -18,11 +30,9 @@ class Messages extends React.Component {
         this.setState({message: ''});
     };
 
-    onChange = e => {
-        this.props.onType();
-        this.setState({message: e.target.value});
-    }
-
+    /**
+     * Render Page.
+     */
     render() {
         return (
             <div>
@@ -36,6 +46,11 @@ class Messages extends React.Component {
         );
     }
 
+    /**
+     * Render single message.
+     * @param message
+     * @param index
+     */
     renderMessage = (message, index) => {
         let outgoing = message.receiver === this.props.user.id;
         return <Message key={index} message={message.content} date={message.date} outgoing={outgoing}/>

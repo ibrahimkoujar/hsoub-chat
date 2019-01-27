@@ -10,10 +10,18 @@ class Login extends React.Component {
 
     state = {username: '', password: ''};
 
+    /**
+     * Change form handler
+     * @param e
+     */
     onChange = e => this.setState({
         [e.target.name]: e.target.value, error: null
     });
 
+    /**
+     * Form submit handler.
+     * @param e
+     */
     onSubmit = e => {
         e.preventDefault();
         let data = { username: this.state.username, password: this.state.password };
@@ -25,6 +33,9 @@ class Login extends React.Component {
         });
     };
 
+    /**
+     * Render page.
+     */
     render(){
         return (
             <Card className="mx-auto col-lg-3 col-sm-6 mt-4">

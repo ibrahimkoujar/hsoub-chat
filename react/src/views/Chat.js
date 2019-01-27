@@ -11,6 +11,18 @@ class Chat extends React.Component {
     state = { user: Auth.getUser(), timeout: false};
 
     componentDidMount(){
+        this.initSocketConnection();
+        this.initData();
+    }
+
+    componentWillUnmount(){
+        this.state.socket.disconnect();
+    }
+
+    /**
+     * Start socket.io connection.
+     */
+    initSocketConnection = () => {
         let socket = socketIOClient(process.env.REACT_APP_SOCKET, {query: "token=" + Auth.getToken()});
         socket.on("connect", () => this.setState({connected: true}));
         socket.on("disconnect", () =>this.setState({connected: false}));
@@ -19,14 +31,12 @@ class Chat extends React.Component {
         socket.on("new_user", this.onNewUser);
         socket.on("typing", this.onTypingMessage);
         this.setState({socket});
-        this.init();
-    }
+    };
 
-    componentWillUnmount(){
-        this.state.socket.disconnect();
-    }
-
-    init = () => {
+    /**
+     * Fetch contacts & messages from server.
+     */
+    initData = () => {
         axios.get('/message').then(res => {
             this.setState({messages: res.data});
         });
@@ -38,43 +48,15 @@ class Chat extends React.Component {
         });
     };
 
-    // Receivers
-    onNewMessage = message => {
-        let messages = this.state.messages.concat(message);
-        this.setState({messages});
-    };
-
-    onSentMessage = message => {
-        let messages = this.state.messages.concat(message);
-        this.setState({messages});
-    };
-
-    onNewUser = user => {
-        let contacts = this.state.contacts.concat(user);
-        this.setState({contacts});
-    };
-
-    onTypingMessage = user => {
-        if (this.state.contact.id !== user) return;
-        this.setState({typing: user});
-        if (this.state.timeout) clearTimeout(this.state.timeout);
-        const timeout = setTimeout(() => {
-            this.setState({typing: false})
-        }, 2000);
-        this.setState({timeout});
-    };
-
-    // Senders
-    onSendMessage = message => {
-        let messages = this.state.messages.concat(message);
-        this.setState({messages});
-        this.state.socket.emit('message', message);
-    };
-
-    onType = e => this.state.socket.emit('typing', this.state.contact.id);
-
+    /**
+     * Change current chat.
+     * @param contact
+     */
     onChatNavigate = contact => this.setState({contact});
 
+    /**
+     * Render Page
+     */
     render(){
         if(!this.state.connected || !this.state.contacts || !this.state.messages){
             return (<Spinner id="loader" color="success" />);
@@ -91,14 +73,77 @@ class Chat extends React.Component {
         );
     }
 
+    /**
+     * Render Chat Window.
+     */
     renderChat = () => {
         const { typing, contact, user } = this.state;
         if(!contact) return;
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
         contact.isTyping = contact.id === typing;
-        return <Messages
-            user={user} messages={messages} sender={this.onSendMessage} onType={this.onType} contact={contact}/>
+        return <Messages user={user} messages={messages} sender={this.sendMessage} sendType={this.sendType} contact={contact}/>
     };
+
+    // Socket IO Events ----------------------------------------------- //
+
+    /**
+     * Send message to user.
+     * @param message
+     */
+    sendMessage = message => {
+        let messages = this.state.messages.concat(message);
+        this.setState({messages});
+        this.state.socket.emit('message', message);
+    };
+
+    /**
+     * Send "user is typing".
+     */
+    sendType = () => this.state.socket.emit('typing', this.state.contact.id);
+
+    /**
+     * New message arrived.
+     * @param message
+     */
+    onNewMessage = message => {
+        let messages = this.state.messages.concat(message);
+        this.setState({messages});
+    };
+
+    /**
+     * Sync messages between sender applications.
+     * @param message
+     */
+    onSentMessage = message => {
+        let messages = this.state.messages.concat(message);
+        this.setState({messages});
+    };
+
+    /**
+     * Receive new user registered to the application.
+     * @param user
+     */
+    onNewUser = user => {
+        let contacts = this.state.contacts.concat(user);
+        this.setState({contacts});
+    };
+
+    /**
+     * Receive typing message.
+     * @param sender
+     */
+    onTypingMessage = sender => {
+        if (this.state.contact.id !== sender) return;
+        this.setState({typing: sender});
+        if (this.state.timeout) clearTimeout(this.state.timeout);
+        const timeout = setTimeout(this.typingTimeout, 2000);
+        this.setState({timeout});
+    };
+
+    /**
+     * Stop typing message.
+     */
+    typingTimeout = () =>  this.setState({typing: false});
 
 }
 

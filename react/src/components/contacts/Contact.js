@@ -2,6 +2,9 @@ import React from "react";
 import Avatar from "assets/avatar.png";
 import moment from 'moment';
 
+/**
+ * Contact Item.
+ */
 const Contact = props => (
     <div className="media">
         <img className="d-none d-md-block ml-3 rounded-circle" src={Avatar} alt="" />
