@@ -2,7 +2,7 @@ import React from "react";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
 import Header from "./Header";
-import {Input} from "reactstrap";
+import { Badge } from "reactstrap";
 
 class Messages extends React.Component {
 
@@ -46,7 +46,7 @@ class Messages extends React.Component {
             <div>
                 <Header contact={this.props.contact} />
                 <div id="message-list">
-                    {this.props.contact.isTyping ? <p id="typing">يكتب الآن</p> : ''}
+                    {this.props.contact.isTyping ? <Badge id="typing" color="success">يكتب الآن</Badge> : ''}
                     {this.props.messages.map(this.renderMessage)}
                 </div>
                 <MessageForm message={this.state.message} onChange={this.onChange} onSend={this.onSend} onKeyDown={this.onKeyDown} />

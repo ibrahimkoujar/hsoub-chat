@@ -165,9 +165,8 @@ textarea, input {
 
 #typing{
     position: fixed;
-    text-align: center;
-    width: 65%;
-    color: #989898;
+    left: 32%;
+    top: 70px;
 }
 
 /*

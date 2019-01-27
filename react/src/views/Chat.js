@@ -106,6 +106,7 @@ class Chat extends React.Component {
      * @param message
      */
     onNewMessage = message => {
+        new Audio('light.mp3').play();
         let messages = this.state.messages.concat(message);
         this.setState({messages});
     };
