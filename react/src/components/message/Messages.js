@@ -18,7 +18,10 @@ class Messages extends React.Component {
         this.setState({message: ''});
     };
 
-    onChange = e => this.setState({message: e.target.value});
+    onChange = e => {
+        this.props.onType();
+        this.setState({message: e.target.value});
+    }
 
     render() {
         return (
@@ -28,7 +31,7 @@ class Messages extends React.Component {
                     {this.props.contact.isTyping ? <p id="typing">يكتب الآن</p> : ''}
                     {this.props.messages.map(this.renderMessage)}
                 </div>
-                <MessageForm message={this.state.message} onChange={this.onChange} onSend={this.onSend} onType={this.props.onType} />
+                <MessageForm message={this.state.message} onChange={this.onChange} onSend={this.onSend} />
             </div>
         );
     }

@@ -55,6 +55,7 @@ class Chat extends React.Component {
     };
 
     onTypingMessage = user => {
+        if (this.state.contact.id !== user) return;
         this.setState({typing: user});
         if (this.state.timeout) clearTimeout(this.state.timeout);
         const timeout = setTimeout(() => {
@@ -91,12 +92,12 @@ class Chat extends React.Component {
     }
 
     renderChat = () => {
-        if(this.state.contacts.length < 1) return;
-        let contact = this.state.contact ? this.state.contact : this.state.contacts[0];
+        const { typing, contact, user } = this.state;
+        if(!contact) return;
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
-        contact.isTyping = contact.id === this.state.typing;
+        contact.isTyping = contact.id === typing;
         return <Messages
-            user={this.state.user} messages={messages} sender={this.onSendMessage} onType={this.onType} contact={contact}/>
+            user={user} messages={messages} sender={this.onSendMessage} onType={this.onType} contact={contact}/>
     };
 
 }
