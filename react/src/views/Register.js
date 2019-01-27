@@ -8,7 +8,7 @@ import Logo from 'assets/logo.png';
 
 class Register extends React.Component {
 
-    state = {};
+    state = {name: '', username: '', password: ''};
 
     onChange = e => this.setState({
         [e.target.name]: e.target.value, error: null

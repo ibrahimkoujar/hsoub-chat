@@ -8,7 +8,7 @@ import logo from 'assets/logo.png';
 
 class Login extends React.Component {
 
-    state = {};
+    state = {username: '', password: ''};
 
     onChange = e => this.setState({
         [e.target.name]: e.target.value, error: null
