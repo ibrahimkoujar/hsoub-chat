@@ -7,7 +7,7 @@ import {Button, Input, InputGroup, InputGroupAddon} from "reactstrap";
 const MessageForm = props => (
     <div className="reply">
         <InputGroup>
-            <Input type="textarea" rows="1" onKeyUp={props.onType} onChange={props.onChange} value={props.message} placeholder="اكتب رسالتك هنا"/>
+            <Input type="textarea" rows="1" onKeyDown={props.onKeyDown} onChange={props.onChange} value={props.message} placeholder="اكتب رسالتك هنا"/>
             <InputGroupAddon addonType="append">
                 <Button onClick={props.onSend}><i className="fa fa-send" /></Button>
             </InputGroupAddon>

@@ -2,6 +2,7 @@ import React from "react";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
 import Header from "./Header";
+import {Input} from "reactstrap";
 
 class Messages extends React.Component {
 
@@ -14,6 +15,13 @@ class Messages extends React.Component {
     onChange = e => {
         this.props.sendType();
         this.setState({message: e.target.value});
+    };
+
+    onKeyDown = e => {
+        if(e.key === 'Enter' && !e.shiftKey){
+            this.onSend();
+            e.preventDefault();
+        }
     };
 
     /**
@@ -41,7 +49,7 @@ class Messages extends React.Component {
                     {this.props.contact.isTyping ? <p id="typing">يكتب الآن</p> : ''}
                     {this.props.messages.map(this.renderMessage)}
                 </div>
-                <MessageForm message={this.state.message} onChange={this.onChange} onSend={this.onSend} />
+                <MessageForm message={this.state.message} onChange={this.onChange} onSend={this.onSend} onKeyDown={this.onKeyDown} />
             </div>
         );
     }

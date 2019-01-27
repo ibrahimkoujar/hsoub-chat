@@ -10,7 +10,6 @@ class Register extends React.Component {
 
     state = {name: '', username: '', password: ''};
 
-
     /**
      * Change form handler
      * @param e
