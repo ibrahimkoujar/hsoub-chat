@@ -1,6 +1,6 @@
 import React from "react";
-import Auth from 'Auth';
 import { withRouter } from "react-router-dom";
+import Auth from 'Auth';
 import Avatar from "assets/avatar.png";
 
 const Header = props => {

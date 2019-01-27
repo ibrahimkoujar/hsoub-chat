@@ -8,7 +8,7 @@ import Messages from 'components/message/Messages';
 
 class Chat extends React.Component {
 
-    state = { user: Auth.getUser() };
+    state = { user: Auth.getUser(), timeout: false};
 
     componentDidMount(){
         let socket = socketIOClient(process.env.REACT_APP_SOCKET, {query: "token=" + Auth.getToken()});
@@ -17,6 +17,7 @@ class Chat extends React.Component {
         socket.on("message", this.onNewMessage);
         socket.on("sent_message", this.onSentMessage);
         socket.on("new_user", this.onNewUser);
+        socket.on("typing", this.onTypingMessage);
         this.setState({socket});
         this.init();
     }
@@ -30,10 +31,14 @@ class Chat extends React.Component {
             this.setState({messages: res.data});
         });
         axios.get('/user').then(res => {
-            this.setState({contacts: res.data});
+            this.setState({
+                contacts: res.data,
+                contact: res.data.length > 0 ? res.data[0] : null
+            });
         });
     };
 
+    // Receivers
     onNewMessage = message => {
         let messages = this.state.messages.concat(message);
         this.setState({messages});
@@ -45,20 +50,29 @@ class Chat extends React.Component {
     };
 
     onNewUser = user => {
-        console.log(user);
         let contacts = this.state.contacts.concat(user);
         this.setState({contacts});
     };
-    
+
+    onTypingMessage = user => {
+        this.setState({typing: user});
+        if (this.state.timeout) clearTimeout(this.state.timeout);
+        const timeout = setTimeout(() => {
+            this.setState({typing: false})
+        }, 2000);
+        this.setState({timeout});
+    };
+
+    // Senders
     onSendMessage = message => {
         let messages = this.state.messages.concat(message);
         this.setState({messages});
         this.state.socket.emit('message', message);
     };
 
-    onChatNavigate = contact => {
-        this.setState({contact: contact});
-    };
+    onType = e => this.state.socket.emit('typing', this.state.contact.id);
+
+    onChatNavigate = contact => this.setState({contact});
 
     render(){
         if(!this.state.connected || !this.state.contacts || !this.state.messages){
@@ -77,12 +91,12 @@ class Chat extends React.Component {
     }
 
     renderChat = () => {
-        if(this.state.contacts.length < 1){
-            return;
-        }
+        if(this.state.contacts.length < 1) return;
         let contact = this.state.contact ? this.state.contact : this.state.contacts[0];
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
-        return <Messages user={this.state.user} messages={messages} sender={this.onSendMessage} contact={contact} />
+        contact.isTyping = contact.id === this.state.typing;
+        return <Messages
+            user={this.state.user} messages={messages} sender={this.onSendMessage} onType={this.onType} contact={contact}/>
     };
 
 }

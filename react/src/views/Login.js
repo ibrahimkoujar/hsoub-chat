@@ -10,9 +10,9 @@ class Login extends React.Component {
 
     state = {};
 
-    onChange = e => {
-        this.setState({ [e.target.name]: e.target.value, error: null });
-    };
+    onChange = e => this.setState({
+        [e.target.name]: e.target.value, error: null
+    });
 
     onSubmit = e => {
         e.preventDefault();

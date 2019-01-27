@@ -1,8 +1,7 @@
 import React from "react";
-import IncomingMessage from "./IncomingMessage";
-import OutgoingMessage from "./OutgoingMessage";
+import Message from "./Message";
+import MessageForm from "./MessageForm";
 import Header from "./Header";
-import { Input, InputGroup, InputGroupAddon, Button } from 'reactstrap';
 
 class Messages extends React.Component {
 
@@ -19,34 +18,24 @@ class Messages extends React.Component {
         this.setState({message: ''});
     };
 
-    onChange = e => {
-        this.setState({message: e.target.value});
-    };
+    onChange = e => this.setState({message: e.target.value});
 
     render() {
         return (
             <div>
                 <Header contact={this.props.contact} />
                 <div id="message-list">
+                    {this.props.contact.isTyping ? <p id="typing">يكتب الآن</p> : ''}
                     {this.props.messages.map(this.renderMessage)}
                 </div>
-                <div className="reply">
-                    <InputGroup>
-                        <Input type="textarea" rows="1" onChange={this.onChange} value={this.state.message} placeholder="اكتب رسالتك هنا"/>
-                        <InputGroupAddon addonType="append">
-                            <Button onClick={this.onSend}><i className="fa fa-send" /></Button>
-                        </InputGroupAddon>
-                    </InputGroup>
-                </div>
+                <MessageForm message={this.state.message} onChange={this.onChange} onSend={this.onSend} onType={this.props.onType} />
             </div>
         );
     }
 
     renderMessage = (message, index) => {
-        if (message.receiver === this.props.user.id) {
-            return <IncomingMessage key={index} message={message.content} date={message.date} />
-        }
-        return <OutgoingMessage key={index} message={message.content} date={message.date} />
+        let outgoing = message.receiver === this.props.user.id;
+        return <Message key={index} message={message.content} date={message.date} outgoing={outgoing}/>
     };
 
 }

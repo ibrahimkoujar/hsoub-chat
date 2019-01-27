@@ -47,16 +47,12 @@ exports.events = socket => {
 
     });
 
-    // User message event.
-    socket.on("typing", data => {
+    // User typing event.
+    socket.on("typing", receiver => {
         // Sender ID
         let sender = socket.user.id;
-        // Receiver ID
-        let receiver = data.user_id;
-        // Message body
-        let message = { user_id: sender };
         // Send message to target user.
-        socket.to(receiver).emit('typing', message);
+        socket.to(receiver).emit('typing', sender);
     });
 
 };

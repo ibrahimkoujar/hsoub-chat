@@ -163,6 +163,13 @@ textarea, input {
     border-radius: 0;
 }
 
+#typing{
+    position: fixed;
+    text-align: center;
+    width: 65%;
+    color: #989898;
+}
+
 /*
  * login
  */

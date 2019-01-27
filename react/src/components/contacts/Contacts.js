@@ -7,10 +7,9 @@ class Contacts extends React.Component {
 
     state = { contacts: this.props.contacts, search: '' };
 
-    onSearch = e => {
-        let search = e.target.value;
-        this.setState({search});
-    };
+    onSearch = e => this.setState(
+        {search: e.target.value}
+    );
 
     render(){
         return (

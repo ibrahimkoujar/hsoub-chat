@@ -10,9 +10,9 @@ class Register extends React.Component {
 
     state = {};
 
-    onChange = e => {
-        this.setState({ [e.target.name]: e.target.value, error: null });
-    };
+    onChange = e => this.setState({
+        [e.target.name]: e.target.value, error: null
+    });
 
     onSubmit = e => {
         e.preventDefault();
@@ -24,7 +24,7 @@ class Register extends React.Component {
             this.props.history.push('/');
         })
         .catch(err => {
-            this.setState({error: err.response.data.message })
+            this.setState({error: err.response.data.message})
         });
     };
 

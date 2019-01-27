@@ -3,7 +3,6 @@
  */
 const mongoose = require('mongoose');
 
-
 /**
  * Mongoose Schema.
  */
@@ -31,20 +30,6 @@ const ModelSchema = new Schema({
         type: Date,
         default: Date.now
     },
-});
-
-/**
- * Append id attribute.
- */
-ModelSchema.virtual('id').get(function(){
-    return this._id.toHexString();
-});
-
-/**
- * Enable attributes.
- */
-ModelSchema.set('toJSON', {
-    virtuals: true
 });
 
 const User = mongoose.model('Message', ModelSchema);

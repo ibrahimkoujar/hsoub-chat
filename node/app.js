@@ -20,8 +20,6 @@ const userRouter = require('./routes/user');
 
 // Express Application
 const app = express();
-// Socket.io
-app.io = io;
 
 /**
  * Express Middleware's.
