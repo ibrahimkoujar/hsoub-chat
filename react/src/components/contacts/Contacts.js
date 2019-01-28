@@ -38,10 +38,11 @@ class Contacts extends React.Component {
             return;
         }
         let messages = this.props.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
+        let unseen = messages.filter(e => !e.seen && e.sender === contact.id).length;
         let lastMessage = messages[messages.length - 1];
         return(
             <div className="contact" key={index} onClick={this.props.chatNavigate.bind(this, contact)}>
-                <Contact name={contact.name} message={lastMessage} />
+                <Contact contact={contact} message={lastMessage} unseen={unseen}/>
             </div>
         );
     }

@@ -26,7 +26,7 @@ textarea, input {
     padding: 10px 16px 10px 15px;
     height: 60px;
     width: 100%;
-    background-color: #009688;
+    background-color: #1ebea5;
     color: #fff;
     z-index: 1000;
 }
@@ -83,6 +83,9 @@ textarea, input {
     font-size: 12px;
     direction: ltr;
     color: #989898;
+}
+.contact .counter{
+    float: left;
 }
 
 /*Conversation*/

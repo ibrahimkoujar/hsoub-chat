@@ -26,6 +26,10 @@ const ModelSchema = new Schema({
     	type:String,
 		required: true,
     },
+    seen: {
+        type: Boolean,
+        default: false
+    },
     date: {
         type: Date,
         default: Date.now

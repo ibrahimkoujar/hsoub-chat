@@ -52,7 +52,15 @@ class Chat extends React.Component {
      * Change current chat.
      * @param contact
      */
-    onChatNavigate = contact => this.setState({contact});
+    onChatNavigate = contact => {
+        this.setState({contact});
+        this.state.socket.emit('seen', contact.id);
+        let messages = this.state.messages;
+        messages.forEach((element, index) => {
+            if(element.sender === contact.id) messages[index].seen = true
+        });
+        this.setState({messages});
+    };
 
     /**
      * Render Page
@@ -106,7 +114,14 @@ class Chat extends React.Component {
      * @param message
      */
     onNewMessage = message => {
+        // Send message seen.
+        if (message.sender === this.state.contact.id){
+            this.state.socket.emit('seen', this.state.contact.id);
+            message.seen = true;
+        }
+        // Make alert.
         new Audio('light.mp3').play();
+        // Add new message to messages.
         let messages = this.state.messages.concat(message);
         this.setState({messages});
     };
