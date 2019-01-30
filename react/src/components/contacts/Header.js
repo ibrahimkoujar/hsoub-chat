@@ -5,11 +5,10 @@ import Avatar from "assets/avatar.png";
  * Contacts Header.
  */
 const Header = props => (
-    <div className="row heading">
-        <div className="col-2 d-none d-md-block">
-            <img src={Avatar} width="40" className="rounded-circle" alt=""/>
-        </div>
-        <div className="col-10 pt-2">جهات الاتصال</div>
+    <div className="heading">
+        <img src={Avatar} width="40" className="rounded-circle" alt="" onClick={props.toggle} />
+        <span className="mr-2">جهات الاتصال</span>
+        <i className="fa fa-bars heading-icon" onClick={props.toggle}/>
     </div>
 );
 

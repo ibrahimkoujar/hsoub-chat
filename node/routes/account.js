@@ -11,21 +11,21 @@ const router = express.Router();
 /**
  * Controller Module.
  */
-const controller = require('../controllers/authController');
+const controller = require('../controllers/accountController');
 /**
  * Auth Middleware.
  */
 const auth = require('../middlewares/auth');
 
 /**
- * POST Login Request.
+ * POST update profile.
  */
-router.post('/', controller.login);
+router.post('/', auth.authenticated, controller.profile);
 
 /**
- * POST register Request.
+ * POST Change password.
  */
-router.post('/register', controller.register);
+router.post('/password', auth.authenticated, controller.password);
 
 /**
  * Export router.

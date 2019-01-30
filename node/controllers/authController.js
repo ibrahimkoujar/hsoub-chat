@@ -40,7 +40,11 @@ exports.register = (req, res, next) => {
     .catch(next);
 };
 
+/**
+ * Send new user to all.
+ * @param user
+ */
 const sendNewUser = (user) => {
-    let data = { name, username, password, avatar } = user;
+    let data = { name, username, avatar } = user;
     io.emit('new_user', data);
 };

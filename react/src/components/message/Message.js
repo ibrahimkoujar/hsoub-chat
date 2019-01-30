@@ -7,8 +7,10 @@ import moment from 'moment';
 const Message = props => (
     <div className="message">
         <div className={props.outgoing ? 'sender' : 'receiver' }>
-            <div className="message-text">{props.message}</div>
-            <span className="message-time">{moment(props.date).format("hh:mm a | MMM D")}</span>
+            <div className="message-text">{props.message.content}</div>
+            <span className="meta">
+                {moment(props.message.date).format("hh:mm a | MMM D")}
+            </span>
         </div>
     </div>
 );

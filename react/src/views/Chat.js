@@ -5,10 +5,11 @@ import axios from 'axios';
 import { Spinner } from 'reactstrap';
 import Contacts from 'components/contacts/Contacts';
 import Messages from 'components/message/Messages';
+import Profile from 'components/profile/Profile';
 
 class Chat extends React.Component {
 
-    state = { user: Auth.getUser(), timeout: false};
+    state = { user: Auth.getUser(), timeout: false, profile: false};
 
     componentDidMount(){
         this.initSocketConnection();
@@ -29,6 +30,7 @@ class Chat extends React.Component {
         socket.on("message", this.onNewMessage);
         socket.on("sent_message", this.onSentMessage);
         socket.on("new_user", this.onNewUser);
+        socket.on("update_user", this.onUpdateUser);
         socket.on("typing", this.onTypingMessage);
         this.setState({socket});
     };
@@ -53,14 +55,19 @@ class Chat extends React.Component {
      * @param contact
      */
     onChatNavigate = contact => {
+        // Set current chat
         this.setState({contact});
+        // Send chat seen to server.
         this.state.socket.emit('seen', contact.id);
+        // make all messages seen in current chat.
         let messages = this.state.messages;
         messages.forEach((element, index) => {
             if(element.sender === contact.id) messages[index].seen = true
         });
         this.setState({messages});
     };
+
+    profileToggle = () => this.setState({profile: !this.state.profile});
 
     /**
      * Render Page
@@ -71,10 +78,11 @@ class Chat extends React.Component {
         }
         return (
             <div className="row">
-                <div className="col-4 p-0">
-                    <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate}/>
+                <div className="col-6 col-md-3 p-0">
+                    <Profile toggle={this.profileToggle} open={this.state.profile} user={this.state.user} />
+                    <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} toggle={this.profileToggle} />
                 </div>
-                <div className="col-8 conversation">
+                <div className="col-6 col-md-9 conversation">
                     {this.renderChat()}
                 </div>
             </div>
@@ -142,6 +150,23 @@ class Chat extends React.Component {
     onNewUser = user => {
         let contacts = this.state.contacts.concat(user);
         this.setState({contacts});
+    };
+
+    /**
+     * Receive update user.
+     * @param user
+     */
+    onUpdateUser = user => {
+        if (this.state.user.id === user.id) {
+            Auth.setUser(user.name, user.about);
+            return;
+        }
+        let contacts = this.state.contacts;
+        contacts.forEach((element, index) => {
+            if(element.id === user.id) contacts[index] = user;
+        });
+        this.setState({contacts});
+        if (this.state.contact.id === user.id) this.setState({contact: user});
     };
 
     /**

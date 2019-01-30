@@ -60,8 +60,8 @@ class Messages extends React.Component {
      * @param index
      */
     renderMessage = (message, index) => {
-        let outgoing = message.receiver === this.props.user.id;
-        return <Message key={index} message={message.content} date={message.date} outgoing={outgoing}/>
+        let outgoing = message.receiver !== this.props.user.id;
+        return <Message key={index} message={message} outgoing={outgoing}/>
     };
 
 }

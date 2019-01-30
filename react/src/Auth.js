@@ -53,6 +53,13 @@ const Auth = {
         return JSON.parse(localStorage.getItem('user'));
     },
 
+    setUser: (name, about) => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        user.name = name;
+        user.about = about;
+        localStorage.setItem('user', JSON.stringify(user));
+    },
+
 };
 
 export default Auth;

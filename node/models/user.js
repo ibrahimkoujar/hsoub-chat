@@ -26,7 +26,7 @@ const ModelSchema = new Schema({
         type: String,
         required: true
     },
-	username: {
+    username: {
     	type:String,
 		required: true,
 		unique: true
@@ -35,6 +35,7 @@ const ModelSchema = new Schema({
         type: String,
         required: true
     },
+    about:  String,
     avatar: String,
 });
 

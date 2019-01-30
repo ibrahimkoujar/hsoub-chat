@@ -29,7 +29,7 @@ class Login extends React.Component {
             Auth.login(res.data);
             this.props.history.push('/');
         }).catch(err => {
-            this.setState({error: err.response.data.message })
+            this.setState({error: err.response.data.message });
         });
     };
 

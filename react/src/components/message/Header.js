@@ -14,16 +14,10 @@ const Header = props => {
     };
 
     return (
-        <div className="row heading">
-            <div className="col-1 d-none d-md-block">
-                <img src={Avatar} width="40" className="rounded-circle" alt=""/>
-            </div>
-            <div className="col-9 pt-2 pr-0">
-                {props.contact ? props.contact.name : ''}
-            </div>
-            <div className="col-2">
-                <i className="fa fa-sign-out fa-2x sign-out" onClick={logout}/>
-            </div>
+        <div className="heading">
+            <img src={Avatar} width="40" className="rounded-circle" alt=""/>
+            <span className="mr-2">{props.contact ? props.contact.name : ''}</span>
+            <i className="fa fa-sign-out fa-2x sign-out" onClick={logout}/>
         </div>
     );
 };

@@ -15,6 +15,7 @@ io = require('socket.io')();
  * Routers
  */
 const authRouter = require('./routes/auth');
+const accountRouter = require('./routes/account');
 const messageRouter = require('./routes/message');
 const userRouter = require('./routes/user');
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Routes
  */
 app.use('/auth', authRouter);
+app.use('/account', accountRouter);
 app.use('/message', messageRouter);
 app.use('/user', userRouter);
 
