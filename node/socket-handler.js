@@ -25,7 +25,7 @@ exports.events = socket => {
     let room = io.sockets.adapter.rooms[socket.user.id];
 
     if (room.length === 1) {
-        io.emit('user_status', {id: socket.user.id, status: true});
+        io.emit('user_status', {[socket.user.id]: true});
     }
 
     // Log user disconnected.
@@ -33,7 +33,7 @@ exports.events = socket => {
         if (!room || room.length < 1) {
             let lastSeen = new Date().getTime();
             users[socket.user.id] = lastSeen;
-            io.emit('user_status', {id: socket.user.id,  status: lastSeen});
+            io.emit('user_status', {[socket.user.id]: lastSeen});
         }
         console.log("Client disconnected: " + socket.user.username);
     });

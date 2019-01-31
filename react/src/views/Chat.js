@@ -31,8 +31,8 @@ class Chat extends React.Component {
         socket.on("new_user", this.onNewUser);
         socket.on("update_user", this.onUpdateUser);
         socket.on("typing", this.onTypingMessage);
-        socket.on("online_users", this.onlineUsers);
-        socket.on("user_status", this.userStatus);
+        socket.on("online_users", this.updateUsersSates);
+        socket.on("user_status", this.updateUsersSates);
 
         this.setState({socket});
     };
@@ -195,21 +195,15 @@ class Chat extends React.Component {
      * Get users states.
      * @param users
      */
-    onlineUsers = users => {
-        console.log(users);
+    updateUsersSates = users => {
         let contacts = this.state.contacts;
         contacts.forEach((element, index) => {
-            if (users[element.id]) contacts[index].status = users[element.id];
+            if (users[element.id])contacts[index].status = users[element.id];
         });
         this.setState({contacts});
-    };
-
-    userStatus = user => {
-        let contacts = this.state.contacts;
-        contacts.forEach((element, index) => {
-            if (user.id === element.id) contacts[index].status = user.status;
-        });
-        this.setState({contacts});
+        let contact = this.state.contact;
+        if (users[contact.id]) contact.status = users[contact.id];
+        this.setState({contact});
     };
 
 }
