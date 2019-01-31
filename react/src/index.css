@@ -171,18 +171,16 @@ textarea, input {
 /*
  * login
  */
- .card{
+.card{
     height: auto;
     text-align: center;
- }
+}
 
- .form-auth .form-control, .profile .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
+.form-auth .form-control, .profile .form-control {
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 1rem;
+    resize: none;
 }
 
 .profile {
@@ -190,7 +188,7 @@ textarea, input {
     overflow-y: auto;
     border: 1px solid #f7f7f7;
     height: calc(100% - 60px);
-    padding: 40px;
+    padding: 20px;
     text-align: center;
 }
 
@@ -235,4 +233,12 @@ textarea, input {
     margin-top: 6px;
     font-size: 28px;
     float: left;
+}
+
+
+.online{
+    font-size: 10px;
+    color: #00ce00;
+    position: absolute;
+    right: 13%;
 }

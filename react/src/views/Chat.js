@@ -9,10 +9,9 @@ import Profile from 'components/profile/Profile';
 
 class Chat extends React.Component {
 
-    state = { user: Auth.getUser(), timeout: false, profile: false};
+    state = { user: Auth.getUser(), timeout: false, profile: false, contacts: []};
 
     componentDidMount(){
-        this.initSocketConnection();
         this.initData();
     }
 
@@ -32,6 +31,9 @@ class Chat extends React.Component {
         socket.on("new_user", this.onNewUser);
         socket.on("update_user", this.onUpdateUser);
         socket.on("typing", this.onTypingMessage);
+        socket.on("online_users", this.onlineUsers);
+        socket.on("user_status", this.userStatus);
+
         this.setState({socket});
     };
 
@@ -47,7 +49,7 @@ class Chat extends React.Component {
                 contacts: res.data,
                 contact: res.data.length > 0 ? res.data[0] : null
             });
-        });
+        }).then(this.initSocketConnection);
     };
 
     /**
@@ -163,7 +165,10 @@ class Chat extends React.Component {
         }
         let contacts = this.state.contacts;
         contacts.forEach((element, index) => {
-            if(element.id === user.id) contacts[index] = user;
+            if(element.id === user.id) {
+                contacts[index] = user;
+                contacts[index].status = element.status;
+            }
         });
         this.setState({contacts});
         if (this.state.contact.id === user.id) this.setState({contact: user});
@@ -185,6 +190,27 @@ class Chat extends React.Component {
      * Stop typing message.
      */
     typingTimeout = () =>  this.setState({typing: false});
+
+    /**
+     * Get users states.
+     * @param users
+     */
+    onlineUsers = users => {
+        console.log(users);
+        let contacts = this.state.contacts;
+        contacts.forEach((element, index) => {
+            if (users[element.id]) contacts[index].status = users[element.id];
+        });
+        this.setState({contacts});
+    };
+
+    userStatus = user => {
+        let contacts = this.state.contacts;
+        contacts.forEach((element, index) => {
+            if (user.id === element.id) contacts[index].status = user.status;
+        });
+        this.setState({contacts});
+    };
 
 }
 

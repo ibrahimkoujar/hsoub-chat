@@ -8,18 +8,33 @@ const Message = require('./models/message');
  */
 const auth = require('./middlewares/auth');
 
+let users = {};
+
 exports.auth = auth.socket;
 
 exports.events = socket => {
 
+    socket.emit('online_users', users);
+
     // Join to socket to user room.
     socket.join(socket.user.id);
-
     // Log user connected.
     console.log("New client connected: " + socket.user.username);
+    users[socket.user.id] = true;
+
+    let room = io.sockets.adapter.rooms[socket.user.id];
+
+    if (room.length === 1) {
+        io.emit('user_status', {id: socket.user.id, status: true});
+    }
 
     // Log user disconnected.
     socket.on("disconnect", () => {
+        if (!room || room.length < 1) {
+            let lastSeen = new Date().getTime();
+            users[socket.user.id] = lastSeen;
+            io.emit('user_status', {id: socket.user.id,  status: lastSeen});
+        }
         console.log("Client disconnected: " + socket.user.username);
     });
 

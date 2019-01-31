@@ -8,7 +8,8 @@ import { Badge } from 'reactstrap';
  */
 const Contact = props => (
     <div className="media">
-        <img className="d-none d-md-block ml-3 rounded-circle" src={Avatar} alt="" />
+        <img className=" ml-3 rounded-circle" src={Avatar} alt="" />
+        {props.contact.status === true ? <i className="fa fa-circle online" /> : ''}
         <div className="media-body">
             <span className="name">{props.contact.name}</span>
             <span className="date">{props.message ? moment(props.message.date).format("hh:mm a") : ''}</span>
