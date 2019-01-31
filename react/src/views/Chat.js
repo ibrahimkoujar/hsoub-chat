@@ -80,11 +80,11 @@ class Chat extends React.Component {
         }
         return (
             <div className="row">
-                <div className="col-6 col-md-3 p-0">
+                <div className="col-6 col-md-4 p-0">
                     <Profile toggle={this.profileToggle} open={this.state.profile} user={this.state.user} />
                     <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} toggle={this.profileToggle} />
                 </div>
-                <div className="col-6 col-md-9 conversation">
+                <div className="col-6 col-md-8 conversation">
                     {this.renderChat()}
                 </div>
             </div>

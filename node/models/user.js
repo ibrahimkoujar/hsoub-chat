@@ -24,18 +24,23 @@ const Schema = mongoose.Schema;
 const ModelSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        maxlength: 20
     },
     username: {
     	type:String,
 		required: true,
-		unique: true
+		unique: true,
+        maxlength: 20
 	},
     password: {
         type: String,
         required: true
     },
-    about:  String,
+    about:  {
+        type: String,
+        maxlength: 100
+    },
     avatar: String,
 });
 

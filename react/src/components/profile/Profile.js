@@ -24,7 +24,7 @@ class Profile extends React.Component {
         e.preventDefault();
         let data = { name: this.state.name, about: this.state.about };
         axios.post('/account', data)
-        .then(this.props.toggle())
+        .then(this.props.toggle)
         .catch(err => this.setState({
             error: err.response.data.message
         }));
