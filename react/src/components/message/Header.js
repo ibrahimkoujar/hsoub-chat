@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import Auth from 'Auth';
-import Avatar from "assets/avatar.png";
+import Avatar from "components/Avatar";
 import moment from "moment";
 
 /**
@@ -21,7 +21,7 @@ const Header = props => {
 
     return (
         <div className="heading">
-            <img src={Avatar} width="40" className="rounded-circle" alt=""/>
+            <Avatar src={props.contact.avatar}/>
             <span className="mr-2">{props.contact ? props.contact.name : ''}</span>
             {lastSeen()}
             <i className="fa fa-sign-out fa-2x sign-out" onClick={logout}/>

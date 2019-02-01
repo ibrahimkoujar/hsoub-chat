@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "assets/avatar.png";
+import Avatar from "components/Avatar";
 import moment from 'moment';
 import { Badge } from 'reactstrap';
 
@@ -8,8 +8,10 @@ import { Badge } from 'reactstrap';
  */
 const Contact = props => (
     <div className="media">
-        <img className=" ml-3 rounded-circle" src={Avatar} alt="" />
-        {props.contact.status === true ? <i className="fa fa-circle online" /> : ''}
+        <span>
+            <Avatar src={props.contact.avatar} />
+            {props.contact.status === true ? <i className="fa fa-circle online" /> : ''}
+        </span>
         <div className="media-body">
             <span className="name">{props.contact.name}</span>
             <span className="date">{props.message ? moment(props.message.date).format("hh:mm a") : ''}</span>

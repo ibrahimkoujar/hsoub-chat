@@ -82,7 +82,7 @@ class Chat extends React.Component {
             <div className="row">
                 <div className="col-6 col-md-4 p-0">
                     <Profile toggle={this.profileToggle} open={this.state.profile} user={this.state.user} />
-                    <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} toggle={this.profileToggle} />
+                    <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} toggle={this.profileToggle} user={this.state.user} />
                 </div>
                 <div className="col-6 col-md-8 conversation">
                     {this.renderChat()}
@@ -160,7 +160,8 @@ class Chat extends React.Component {
      */
     onUpdateUser = user => {
         if (this.state.user.id === user.id) {
-            Auth.setUser(user.name, user.about);
+            this.setState({user});
+            Auth.setUser(user);
             return;
         }
         let contacts = this.state.contacts;

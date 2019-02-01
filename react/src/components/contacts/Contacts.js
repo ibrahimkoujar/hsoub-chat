@@ -19,7 +19,7 @@ class Contacts extends React.Component {
     render(){
         return (
             <div>
-                <Header toggle={this.props.toggle} />
+                <Header toggle={this.props.toggle} user={this.props.user}/>
                 <Search onSearch={this.onSearch} />
                 <div className="contact-list">
                     {this.props.contacts.map((contact, index) => this.renderContact(contact, index) )}

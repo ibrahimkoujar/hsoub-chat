@@ -18,9 +18,33 @@ const controller = require('../controllers/accountController');
 const auth = require('../middlewares/auth');
 
 /**
+ * Handel multipart/form-data
+ */
+const path = require('path')
+const multer  = require('multer');
+const storage = multer.diskStorage({
+    destination: 'public/uploads/',
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+    }
+});
+
+const upload = multer({
+    limits: { fileSize: 1024 * 1024 },
+    storage: storage ,
+    fileFilter: (req, file, cb) => {
+        let fileTypes = /jpeg|jpg/;
+        let mimeType = fileTypes.test(file.mimetype);
+        let extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+        if (mimeType && extname)  return cb(null, true);
+        cb(new Error('File not allowed.'));
+    },
+});
+
+/**
  * POST update profile.
  */
-router.post('/', auth.authenticated, controller.profile);
+router.post('/', [auth.authenticated, upload.single('avatar')], controller.profile);
 
 /**
  * POST Change password.

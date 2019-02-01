@@ -35,17 +35,18 @@ exports.password = (req, res, next) => {
 exports.profile = (req, res, next) => {
     const id = req.user.id;
     const { name, about } = req.body;
-    User.findById(id)
-        .then(user => {
-            user.name = name;
-            user.about = about;
-            return user.save();
-        })
-        .then(updated => {
-            sendUpdateUser(updated);
-            res.json();
-        })
-        .catch(next);
+    const avatar = req.file ?  req.file.filename : '';
+    User.findById(id).then(user => {
+        user.name = name;
+        user.about = about;
+        user.avatar= avatar;
+        return user.save();
+    })
+    .then(updated => {
+        sendUpdateUser(updated);
+        res.json();
+    })
+    .catch(next);
 };
 
 /**
@@ -53,6 +54,6 @@ exports.profile = (req, res, next) => {
  * @param user
  */
 const sendUpdateUser = (user) => {
-    let data = { id, name, username, avatar } = user;
+    let data = { id, name, username, avatar, about } = user;
     io.emit('update_user', data);
 };
