@@ -42,7 +42,12 @@ app.use('/user', userRouter);
 /**
  * Errors handling
  */
-app.use((req, res, next) => next(createError(404)));
+app.use((req, res, next) => {
+    if(req.get('accept').includes('json')){
+        return next(createError(404))
+    }
+    res.status(404).sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
     if(err.name === 'MongoError' || err.name === 'ValidationError' || err.name === 'CastError'){
