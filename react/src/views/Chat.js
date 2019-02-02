@@ -7,12 +7,26 @@ import { ContactHeader, Contacts, Messages, ChatHeader, MessageForm, Profile, Se
 
 class Chat extends React.Component {
 
-    state = { user: Auth.getUser(), contacts: [],  profile: false, userProfile: false, search: '', timeout: false};
+    state = {
+        user: Auth.getUser(),
+        contacts: [],
+        contact: {},
+        profile: false,
+        userProfile: false,
+        search: '',
+        timeout: false
+    };
 
+    /**
+     * When component start.
+     */
     componentDidMount(){
         this.initData();
     }
 
+    /**
+     * When component will unmount.
+     */
     componentWillUnmount(){
         this.state.socket.disconnect();
     }
@@ -67,9 +81,22 @@ class Chat extends React.Component {
         this.setState({messages});
     };
 
+    /**
+     * Toggle my profile sidebar.
+     * @param e
+     */
     profileToggle = e => this.setState({profile: !this.state.profile});
+
+    /**
+     * Toggle user profile sidebar.
+     * @param e
+     */
     userProfileToggle = e => this.setState({userProfile: !this.state.userProfile});
 
+    /**
+     * Search in contacts.
+     * @param e
+     */
     onSearch = e => this.setState({search: e.target.value});
 
     /**
