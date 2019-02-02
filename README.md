@@ -27,7 +27,7 @@ In the project directory, go to react dir:
 ### Setup `Production - Remote`
 In the project directory, go to react dir:
 * Install dependencies by `npm install`.
-* Create a copy .env.example file to .env `cp .env.example .env`.
+* Create a copy of .env.example file to .env `cp .env.example .env`.
 * Set your server url `REACT_APP_SOCKET`.
 * Start application by `npm run build`.
 * Move all contents of `build` dir to `node/public/`.
