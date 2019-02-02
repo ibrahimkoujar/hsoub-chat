@@ -9,12 +9,26 @@ Hsoub-chat Application
 
 ### Setup
 In the project directory, go to node dir:
-* Install dependencies by `npm install`
-* Start server by `npm start`
+* Install dependencies by `npm install`.
+* Create a copy .env.example file to .env `cp .env.example .env`.
+* Set your mongodb `DB_URL` and preferred port `PORT`.
+* Start server by `npm start`.
 
 ## Frontend 
 
-### Setup
+### Setup `Local`
 In the project directory, go to react dir:
-* Install dependencies by `npm install`
-* Start application by `npm start`
+* Install dependencies by `npm install`.
+* Create a copy .env.example file to .env `cp .env.example .env`.
+* Set your server url `REACT_APP_SOCKET`.
+* Set your proxy server in package.json file `"proxy": "http://localhost:3001"`.
+* Start application by `npm start`.
+
+### Setup `Production - Remote`
+In the project directory, go to react dir:
+* Install dependencies by `npm install`.
+* Create a copy .env.example file to .env `cp .env.example .env`.
+* Set your server url `REACT_APP_SOCKET`.
+* Start application by `npm run build`.
+* Move all contents of `build` dir to `node/public/`.
+* Run the application by request node application url.
