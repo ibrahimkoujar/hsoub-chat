@@ -3,13 +3,13 @@ import socketIOClient from 'socket.io-client';
 import Auth from 'Auth';
 import axios from 'axios';
 import { Spinner } from 'reactstrap';
-import Contacts from 'components/contacts/Contacts';
-import Messages from 'components/message/Messages';
-import Profile from 'components/profile/Profile';
+import { ContactHeader, Contacts, Messages, ChatHeader, MessageForm } from 'components/chat';
+import Profile from "../components/profile/Profile";
+import Search from "../components/chat/Search";
 
 class Chat extends React.Component {
 
-    state = { user: Auth.getUser(), timeout: false, profile: false, contacts: []};
+    state = { user: Auth.getUser(), timeout: false, profile: false, contacts: [], search: ''};
 
     componentDidMount(){
         this.initData();
@@ -69,7 +69,9 @@ class Chat extends React.Component {
         this.setState({messages});
     };
 
-    profileToggle = () => this.setState({profile: !this.state.profile});
+    profileToggle = e => this.setState({profile: !this.state.profile});
+
+    onSearch = e => this.setState({search: e.target.value});
 
     /**
      * Render Page
@@ -79,15 +81,27 @@ class Chat extends React.Component {
             return (<Spinner id="loader" color="success" />);
         }
         return (
-            <div className="row">
-                <div className="col-6 col-md-4 p-0">
-                    <Profile toggle={this.profileToggle} open={this.state.profile} user={this.state.user} />
-                    <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} toggle={this.profileToggle} user={this.state.user} />
+            <div className="container-fluid" id="main-container">
+
+                <div className="row h-100">
+
+                    <div className="col-6 col-md-4" id="chat-list-area" >
+                        <ContactHeader user={this.state.user} toggle={this.profileToggle}/>
+                        <Search onSearch={this.onSearch}/>
+                        <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} search={this.state.search}/>
+                        <Profile user={this.state.user} toggle={this.profileToggle} open={this.state.profile}/>
+                    </div>
+
+                    <div className="col-6 col-md-8" id="message-area">
+                        <ChatHeader contact={this.state.contact} />
+                        {this.renderChat()}
+                        <MessageForm contact={this.state.contact} sender={this.sendMessage} sendType={this.sendType} />
+                    </div>
+
                 </div>
-                <div className="col-6 col-md-8 conversation">
-                    {this.renderChat()}
-                </div>
+
             </div>
+
         );
     }
 
@@ -99,7 +113,7 @@ class Chat extends React.Component {
         if(!contact) return;
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
         contact.isTyping = contact.id === typing;
-        return <Messages user={user} messages={messages} sender={this.sendMessage} sendType={this.sendType} contact={contact}/>
+        return <Messages user={user} messages={messages} sender={this.sendMessage} sendType={this.sendType} contact={contact} />
     };
 
     // Socket IO Events ----------------------------------------------- //

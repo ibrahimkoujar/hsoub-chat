@@ -34,12 +34,10 @@ exports.password = (req, res, next) => {
  */
 exports.profile = (req, res, next) => {
     const id = req.user.id;
-    const { name, about } = req.body;
-    const avatar = req.file ?  req.file.filename : '';
     User.findById(id).then(user => {
-        user.name = name;
-        user.about = about;
-        user.avatar= avatar;
+        user.name = req.body.name;
+        user.about = req.body.about;
+        user.avatar = req.file ?  req.file.filename : user.avatar;
         return user.save();
     })
     .then(updated => {
