@@ -116,9 +116,8 @@ class Chat extends React.Component {
      */
     sendMessage = message => {
         let messages = this.state.messages.concat(message);
-        this.setState({messages});
+        this.setState({messages, message: ''});
         this.state.socket.emit('message', message);
-        this.goToBottom();
     };
 
     /**
