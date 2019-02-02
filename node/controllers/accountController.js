@@ -22,7 +22,9 @@ exports.password = (req, res, next) => {
         user.password = newPassword;
         return user.save();
     })
-    .then(res.json())
+    .then(updated => {
+        res.json();
+    })
     .catch(next);
 };
 
