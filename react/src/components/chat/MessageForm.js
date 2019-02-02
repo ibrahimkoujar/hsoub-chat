@@ -32,6 +32,7 @@ class MessageForm extends React.Component {
             date: new Date().getTime()
         };
         this.props.sender(message);
+        this.setState({message: ''});
     };
 
     /**
