@@ -1,6 +1,5 @@
 import React from "react";
 import Message from "./Message";
-import { Badge } from "reactstrap";
 
 class Messages extends React.Component {
 

@@ -3,9 +3,7 @@ import socketIOClient from 'socket.io-client';
 import Auth from 'Auth';
 import axios from 'axios';
 import { Spinner } from 'reactstrap';
-import { ContactHeader, Contacts, Messages, ChatHeader, MessageForm } from 'components/chat';
-import Profile from "../components/profile/Profile";
-import Search from "../components/chat/Search";
+import { ContactHeader, Contacts, Messages, ChatHeader, MessageForm, Profile, Search } from 'components';
 
 class Chat extends React.Component {
 
@@ -82,26 +80,20 @@ class Chat extends React.Component {
         }
         return (
             <div className="container-fluid" id="main-container">
-
                 <div className="row h-100">
-
                     <div className="col-6 col-md-4" id="chat-list-area" >
                         <ContactHeader user={this.state.user} toggle={this.profileToggle}/>
                         <Search onSearch={this.onSearch}/>
                         <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} search={this.state.search}/>
                         <Profile user={this.state.user} toggle={this.profileToggle} open={this.state.profile}/>
                     </div>
-
                     <div className="col-6 col-md-8" id="message-area">
                         <ChatHeader contact={this.state.contact} />
                         {this.renderChat()}
                         <MessageForm contact={this.state.contact} sender={this.sendMessage} sendType={this.sendType} />
                     </div>
-
                 </div>
-
             </div>
-
         );
     }
 
@@ -126,6 +118,7 @@ class Chat extends React.Component {
         let messages = this.state.messages.concat(message);
         this.setState({messages});
         this.state.socket.emit('message', message);
+        this.goToBottom();
     };
 
     /**

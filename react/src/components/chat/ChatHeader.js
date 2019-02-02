@@ -32,7 +32,7 @@ const ChatHeader = props => {
                         <i className="fa fa-ellipsis-v" />
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem>الملف الشخصي</DropdownItem>
+                        <DropdownItem onClick={logout}>تسجيل الخروج</DropdownItem>
                     </DropdownMenu>
                 </UncontrolledDropdown>
             </Nav>

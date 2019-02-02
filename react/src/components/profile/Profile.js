@@ -80,12 +80,12 @@ class Profile extends React.Component {
 
                         <div className="bg-white px-4 py-2">
                             <label className="text-muted">الاسم</label>
-                            <Input value={this.state.name} name="name" onChange={this.onChange} required  autocomplete="off"/>
+                            <Input value={this.state.name} name="name" onChange={this.onChange} required  autoComplete="off"/>
                         </div>
 
                         <div className="bg-white px-3 py-2">
                             <label className="text-muted">رسالة الحالة</label>
-                            <Input value={this.state.about} name="about" onChange={this.onChange} required autocomplete="off" />
+                            <Input value={this.state.about} name="about" onChange={this.onChange} required autoComplete="off" />
                         </div>
 
                         <div className="bg-white px-3 py-2">
