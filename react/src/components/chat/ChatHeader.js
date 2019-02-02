@@ -21,7 +21,9 @@ const ChatHeader = props => {
 
     return (
         <div className="row align-items-center heading m-0 w-100">
-            <Avatar src={props.contact.avatar}/>
+            <div onClick={props.toggle}>
+                <Avatar src={props.contact.avatar} />
+            </div>
             <div className="text-right">
                 <div>{props.contact ? props.contact.name : ''}</div>
                 <small>{props.contact.isTyping ? 'يكتب الآن' : lastSeen()}</small>

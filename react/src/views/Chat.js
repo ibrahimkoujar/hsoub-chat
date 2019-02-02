@@ -3,11 +3,11 @@ import socketIOClient from 'socket.io-client';
 import Auth from 'Auth';
 import axios from 'axios';
 import { Spinner } from 'reactstrap';
-import { ContactHeader, Contacts, Messages, ChatHeader, MessageForm, Profile, Search } from 'components';
+import { ContactHeader, Contacts, Messages, ChatHeader, MessageForm, Profile, Search, UserProfile } from 'components';
 
 class Chat extends React.Component {
 
-    state = { user: Auth.getUser(), timeout: false, profile: false, contacts: [], search: ''};
+    state = { user: Auth.getUser(), contacts: [],  profile: false, userProfile: false, search: '', timeout: false};
 
     componentDidMount(){
         this.initData();
@@ -68,6 +68,7 @@ class Chat extends React.Component {
     };
 
     profileToggle = e => this.setState({profile: !this.state.profile});
+    userProfileToggle = e => this.setState({userProfile: !this.state.userProfile});
 
     onSearch = e => this.setState({search: e.target.value});
 
@@ -86,9 +87,10 @@ class Chat extends React.Component {
                         <Search onSearch={this.onSearch}/>
                         <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} search={this.state.search}/>
                         <Profile user={this.state.user} toggle={this.profileToggle} open={this.state.profile}/>
+                        <UserProfile contact={this.state.contact} toggle={this.userProfileToggle} open={this.state.userProfile} />
                     </div>
                     <div className="col-6 col-md-8" id="message-area">
-                        <ChatHeader contact={this.state.contact} />
+                        <ChatHeader contact={this.state.contact} toggle={this.userProfileToggle} />
                         {this.renderChat()}
                         <MessageForm contact={this.state.contact} sender={this.sendMessage} sendType={this.sendType} />
                     </div>

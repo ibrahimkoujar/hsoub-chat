@@ -57,7 +57,7 @@ class Profile extends React.Component {
      */
     render(){
         return (
-            <div id="side-profile" className={this.props.open ? 'open' : ''}>
+            <div className={this.props.open ? 'side-profile open' : 'side-profile'}>
 
                 <div className="row align-items-center heading">
                     <div className="mr-2 nav-link" onClick={this.onClose}>
