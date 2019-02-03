@@ -22,7 +22,7 @@ class Chat extends React.Component {
      */
     componentDidMount(){
         axios.get('/auth/me').then(res => {
-            this.setState({user: res});
+            this.setState({user: res.data});
         }).catch(err => {
             Auth.logout();
             this.props.history.push('/login');
