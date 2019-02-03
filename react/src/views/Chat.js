@@ -33,7 +33,7 @@ class Chat extends React.Component {
         axios.get('/user').then(res => {
             this.setState({
                 contacts: res.data,
-                contact: res.data.length > 0 ? res.data[0] : null
+                contact: res.data.length > 0 ? res.data[0] : {}
             });
         }).then(this.initSocketConnection);
     }
@@ -130,7 +130,7 @@ class Chat extends React.Component {
         const { typing, contact, user } = this.state;
         if(!contact) return;
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
-        contact.isTyping = contact.id === typing;
+        contact.isTyping = contact.id && contact.id === typing;
         return <Messages user={user} messages={messages} sender={this.sendMessage} sendType={this.sendType} contact={contact} />
     };
 
@@ -231,7 +231,7 @@ class Chat extends React.Component {
     updateUsersSates = users => {
         let contacts = this.state.contacts;
         contacts.forEach((element, index) => {
-            if (users[element.id])contacts[index].status = users[element.id];
+            if (users[element.id]) contacts[index].status = users[element.id];
         });
         this.setState({contacts});
         let contact = this.state.contact;

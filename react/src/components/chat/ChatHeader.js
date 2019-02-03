@@ -10,15 +10,27 @@ import {DropdownItem, DropdownMenu, DropdownToggle, Nav, UncontrolledDropdown} f
  */
 const ChatHeader = props => {
 
+    /**
+     * Logout user.
+     */
     const logout = () => {
         Auth.logout();
         props.history.push('/');
     };
 
-    const lastSeen = () => {
-        return props.contact.status === true ? 'متصل الآن' : moment(props.contact.status).fromNow();
+    /**
+     * Render user status
+     * @returns {string}
+     */
+    const status = () => {
+        if (props.contact.isTyping) return 'يكتب الآن';
+        if (props.contact.status === true) return 'متصل الآن';
+        if (props.contact.status) return moment(props.contact.status).fromNow();
     };
 
+    /**
+     * Render Component
+     */
     return (
         <div className="row align-items-center heading m-0 w-100">
             <div onClick={props.toggle}>
@@ -26,7 +38,7 @@ const ChatHeader = props => {
             </div>
             <div className="text-right">
                 <div>{props.contact ? props.contact.name : ''}</div>
-                <small>{props.contact.isTyping ? 'يكتب الآن' : lastSeen()}</small>
+                <small>{status()}</small>
             </div>
             <Nav className="mr-auto" navbar>
                 <UncontrolledDropdown>
