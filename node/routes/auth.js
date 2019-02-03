@@ -28,6 +28,11 @@ router.post('/', controller.login);
 router.post('/register', controller.register);
 
 /**
+ * GET check user.
+ */
+router.get('/me', auth.authenticated, controller.me);
+
+/**
  * Export router.
  */
 module.exports = router;

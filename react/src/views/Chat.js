@@ -21,14 +21,28 @@ class Chat extends React.Component {
      * When component start.
      */
     componentDidMount(){
-        this.initData();
+        axios.get('/auth/me').then(res => {
+            this.setState({user: res});
+        }).catch(err => {
+            Auth.logout();
+            this.props.history.push('/login');
+        });
+        axios.get('/message').then(res => {
+            this.setState({messages: res.data});
+        });
+        axios.get('/user').then(res => {
+            this.setState({
+                contacts: res.data,
+                contact: res.data.length > 0 ? res.data[0] : null
+            });
+        }).then(this.initSocketConnection);
     }
 
     /**
      * When component will unmount.
      */
     componentWillUnmount(){
-        this.state.socket.disconnect();
+        if (this.state.socket) this.state.socket.disconnect();
     }
 
     /**
@@ -50,21 +64,6 @@ class Chat extends React.Component {
     };
 
     /**
-     * Fetch contacts & messages from server.
-     */
-    initData = () => {
-        axios.get('/message').then(res => {
-            this.setState({messages: res.data});
-        });
-        axios.get('/user').then(res => {
-            this.setState({
-                contacts: res.data,
-                contact: res.data.length > 0 ? res.data[0] : null
-            });
-        }).then(this.initSocketConnection);
-    };
-
-    /**
      * Change current chat.
      * @param contact
      */
@@ -83,15 +82,13 @@ class Chat extends React.Component {
 
     /**
      * Toggle my profile sidebar.
-     * @param e
      */
-    profileToggle = e => this.setState({profile: !this.state.profile});
+    profileToggle = () => this.setState({profile: !this.state.profile});
 
     /**
      * Toggle user profile sidebar.
-     * @param e
      */
-    userProfileToggle = e => this.setState({userProfile: !this.state.userProfile});
+    userProfileToggle = () => this.setState({userProfile: !this.state.userProfile});
 
     /**
      * Search in contacts.

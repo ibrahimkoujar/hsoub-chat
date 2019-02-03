@@ -40,6 +40,21 @@ exports.register = (req, res, next) => {
     .catch(next);
 };
 
+
+/**
+ * Check user.
+ * @param req {password, newPassword}
+ * @param res
+ * @param next
+ */
+exports.me = (req, res, next) => {
+    User.findById(req.user.id).then(user => {
+        if (!user) throw createError(401);
+        res.json(user.getData());
+    })
+    .catch(next);
+};
+
 /**
  * Send new user to all.
  * @param user

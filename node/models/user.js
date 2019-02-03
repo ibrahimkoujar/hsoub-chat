@@ -68,16 +68,16 @@ ModelSchema.methods.checkPassword = function(password){
  * Generate user token.
  */
 ModelSchema.methods.signJwt = function(){
-    let user = this;
-    let data = {
-        id:user._id,
-        name: user.name,
-        username:user.username,
-        about:user.about,
-        avatar:user.avatar
-    };
+    let data = this.getData();
     data.token = jwt.sign(data, process.env.JWT_SECRET);
     return data;
+};
+
+/**
+ * Get user data.
+ */
+ModelSchema.methods.getData = function(){
+    return { id: this._id, name: this.name, username: this.username, about: this.about, avatar: this.avatar };
 };
 
 /**
