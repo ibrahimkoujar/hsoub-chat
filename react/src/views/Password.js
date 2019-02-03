@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Form, Input, Button } from "reactstrap";
-import { Error, Avatar }from "components";
+import { Error }from "components";
 import axios from "axios";
 import logo from 'assets/logo.png';
 
