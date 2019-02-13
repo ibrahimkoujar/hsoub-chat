@@ -158,6 +158,7 @@ class Chat extends React.Component {
     onNewMessage = message => {
         // Send message seen.
         if (message.sender === this.state.contact.id){
+            this.setState({typing: false});
             this.state.socket.emit('seen', this.state.contact.id);
             message.seen = true;
         }

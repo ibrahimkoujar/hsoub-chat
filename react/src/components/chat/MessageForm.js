@@ -1,21 +1,27 @@
 import React from "react";
 import { Input } from "reactstrap";
+import moment from "moment";
 
 class MessageForm extends React.Component {
 
-    state = { };
+    state = { lastType: false };
 
     /**
      * Change message handler
      * @param e
      */
     onChange = e => {
-        this.props.sendType();
+        let lastType = this.state.lastType;
+        if(!lastType || moment() - lastType > 2000){
+            this.setState({lastType: moment()});
+            this.props.sendType();
+        }
         this.setState({message: e.target.value});
     };
 
     onKeyDown = e => {
         if(e.key === 'Enter' && !e.shiftKey){
+            this.setState({lastType: false});
             this.onSend();
             e.preventDefault();
         }
