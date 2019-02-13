@@ -4,14 +4,14 @@
 const mongoose = require('mongoose');
 
 /**
- * Mongoose Schema.
+ * Mongoose Schema
  */
 const Schema = mongoose.Schema;
 
 /**
  * Define User Schema.
  */
-const ModelSchema = new Schema({
+const ModelSchema = Schema({
     sender: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -36,6 +36,6 @@ const ModelSchema = new Schema({
     },
 });
 
-const User = mongoose.model('Message', ModelSchema);
+const Model = mongoose.model('Message', ModelSchema);
 
-module.exports = User;
+module.exports = Model;

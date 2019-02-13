@@ -14,14 +14,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 /**
- * Mongoose Schema.
- */
-const Schema = mongoose.Schema;
-
-/**
  * Define User Schema.
  */
-const ModelSchema = new Schema({
+const ModelSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -94,6 +89,6 @@ ModelSchema.set('toJSON', {
     virtuals: true
 });
 
-const User = mongoose.model('User', ModelSchema);
+const Model = mongoose.model('User', ModelSchema);
 
-module.exports = User;
+module.exports = Model;

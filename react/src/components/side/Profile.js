@@ -15,6 +15,10 @@ class Profile extends React.Component {
 
     showFileUpload = e  => this.fileUpload.current.click();
 
+    /**
+     * If avtar input changed then change the preview.  
+     * @param e
+     */
     onImageChange = e => {
         if (e.target.files && e.target.files[0]) {
             this.setState({
@@ -47,6 +51,9 @@ class Profile extends React.Component {
         }));
     };
 
+    /**
+     * When close sidebar.
+     */
     onClose = e => {
         this.setState({image: false, name: this.props.user.name, about: this.props.user.about});
         this.props.toggle();
@@ -91,6 +98,7 @@ class Profile extends React.Component {
                         <div className="bg-white px-3 py-2">
                             <Button block className="mt-3">حفظ</Button>
                         </div>
+
                     </Form>
 
                 </div>
