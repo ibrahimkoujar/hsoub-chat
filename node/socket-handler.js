@@ -65,9 +65,8 @@ exports.events = socket => {
 
     // Messages seen event.
     socket.on("seen", sender => {
-        console.log(sender);
         let receiver = socket.user.id;
-        Message.update({sender, receiver, seen: false}, {seen: true}, {multi: true}).exec();
+        Message.updateMany({sender, receiver, seen: false}, {seen: true}, {multi: true}).exec();
     });
 
 };
