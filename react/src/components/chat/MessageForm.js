@@ -10,20 +10,16 @@ class MessageForm extends React.Component {
      * Change message handler
      * @param e
      */
-    onChange = e => {
-        let lastType = this.state.lastType;
-        if(!lastType || moment() - lastType > 2000){
-            this.setState({lastType: moment()});
-            this.props.sendType();
-        }
-        this.setState({message: e.target.value});
-    };
+    onChange = e => this.setState({message: e.target.value});
 
     onKeyDown = e => {
         if(e.key === 'Enter' && !e.shiftKey){
             this.setState({lastType: false});
             this.onSend();
             e.preventDefault();
+        } else if (!this.state.lastType || moment() - this.state.lastType > 2000){
+            this.setState({lastType: moment()});
+            this.props.sendType();
         }
     };
 
