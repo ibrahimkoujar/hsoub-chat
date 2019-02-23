@@ -43,13 +43,12 @@ exports.guest = (req, res, next) => {
  * @param next
  */
 exports.socket = (socket, next) => {
-    if (socket.handshake.query && socket.handshake.query.token){
-        jwt.verify(socket.handshake.query.token, process.env.JWT_SECRET, (err, decoded) => {
-            if(err) return next(new Error('Authentication error'));
-            socket.user = decoded;
-            next();
-        });
-    } else {
-        next(new Error('Authentication error'));
+    if (!socket.handshake.query || !socket.handshake.query.token) {
+        return next(createError(401));
     }
+    jwt.verify(socket.handshake.query.token, process.env.JWT_SECRET, (err, decoded) => {
+        if(err) return next(createError(401));
+        socket.user = decoded;
+        next();
+    });
 };
