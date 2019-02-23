@@ -2,7 +2,7 @@ import React from "react";
 import socketIOClient from 'socket.io-client';
 import Auth from 'Auth';
 import axios from 'axios';
-import { Spinner } from 'reactstrap';
+import { Row, Spinner } from 'reactstrap';
 import { ContactHeader, Contacts, Messages, ChatHeader, MessageForm, Profile, Search, UserProfile } from 'components';
 
 class Chat extends React.Component {
@@ -104,22 +104,25 @@ class Chat extends React.Component {
             return (<Spinner id="loader" color="success" />);
         }
         return (
-            <div className="container-fluid" id="main-container">
-                <div className="row h-100">
-                    <div className="col-6 col-md-4" id="chat-list-area" >
+
+                <Row className="h-100">
+
+                    <div className="col-6 col-md-4" id="contacts-section" >
                         <ContactHeader user={this.state.user} toggle={this.profileToggle}/>
                         <Search onSearch={this.onSearch}/>
                         <Contacts contacts={this.state.contacts} messages={this.state.messages} chatNavigate={this.onChatNavigate} search={this.state.search}/>
                         <Profile user={this.state.user} toggle={this.profileToggle} open={this.state.profile}/>
                         <UserProfile contact={this.state.contact} toggle={this.userProfileToggle} open={this.state.userProfile} />
                     </div>
-                    <div className="col-6 col-md-8" id="message-area">
+
+                    <div className="col-6 col-md-8" id="messages-section">
                         <ChatHeader contact={this.state.contact} toggle={this.userProfileToggle} />
                         {this.renderChat()}
                         <MessageForm contact={this.state.contact} sender={this.sendMessage} sendType={this.sendType} />
                     </div>
-                </div>
-            </div>
+
+                </Row>
+
         );
     }
 
@@ -127,11 +130,10 @@ class Chat extends React.Component {
      * Render Chat Window.
      */
     renderChat = () => {
-        const { typing, contact, user } = this.state;
+        const { contact, user } = this.state;
         if(!contact) return;
         let messages = this.state.messages.filter(e => e.sender === contact.id || e.receiver === contact.id);
-        contact.isTyping = contact.id && contact.id === typing;
-        return <Messages user={user} messages={messages} sender={this.sendMessage} sendType={this.sendType} contact={contact} />
+        return <Messages user={user} messages={messages} />
     };
 
     // Socket IO Events ----------------------------------------------- //

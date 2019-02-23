@@ -43,7 +43,7 @@ exports.register = (req, res, next) => {
 
 /**
  * Check user.
- * @param req {password, newPassword}
+ * @param req
  * @param res
  * @param next
  */

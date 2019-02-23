@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button } from "reactstrap";
+import { Row, Form, Input, Button } from "reactstrap";
 import Error from "components/Error";
 import Avatar from 'components/Avatar';
 import axios from "axios";
@@ -66,12 +66,12 @@ class Profile extends React.Component {
         return (
             <div className={this.props.open ? 'side-profile open' : 'side-profile'}>
 
-                <div className="row align-items-center heading">
+                <Row className="heading">
                     <div className="mr-2 nav-link" onClick={this.onClose}>
                         <i className="fa fa-arrow-right" />
                     </div>
                     <div>الملف الشخصي</div>
-                </div>
+                </Row>
 
                 <div className="d-flex flex-column" style={{overflow: 'auto'}}>
 

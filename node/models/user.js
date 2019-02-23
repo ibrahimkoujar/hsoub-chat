@@ -40,6 +40,22 @@ const ModelSchema = new mongoose.Schema({
 });
 
 /**
+ * Get user data.
+ */
+ModelSchema.methods.getData = function(){
+    return { id: this._id, name: this.name, username: this.username, about: this.about, avatar: this.avatar };
+};
+
+/**
+ * Generate user token.
+ */
+ModelSchema.methods.signJwt = function(){
+    let data = this.getData();
+    data.token = jwt.sign(data, process.env.JWT_SECRET);
+    return data;
+};
+
+/**
  * Pre save middleware
  * @param next
  */
@@ -55,24 +71,7 @@ ModelSchema.pre('save', function(next) {
  * @param password
  */
 ModelSchema.methods.checkPassword = function(password){
-    let user = this;
-    return bcrypt.compareSync(password, user.password);
-};
-
-/**
- * Generate user token.
- */
-ModelSchema.methods.signJwt = function(){
-    let data = this.getData();
-    data.token = jwt.sign(data, process.env.JWT_SECRET);
-    return data;
-};
-
-/**
- * Get user data.
- */
-ModelSchema.methods.getData = function(){
-    return { id: this._id, name: this.name, username: this.username, about: this.about, avatar: this.avatar };
+    return bcrypt.compareSync(password, this.password);
 };
 
 /**

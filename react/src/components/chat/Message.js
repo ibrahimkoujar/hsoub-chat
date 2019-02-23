@@ -5,7 +5,7 @@ import moment from 'moment';
  * Message item.
  */
 const Message = props => (
-    <div className={props.outgoing ? 'message-item' : 'message-item incoming'}>
+    <div className={props.message.outgoing ? 'message-item' : 'message-item incoming'}>
         <div className="d-flex flex-row">
             <div className="body m-1 mr-2">
                 <div>{props.message.content}</div>

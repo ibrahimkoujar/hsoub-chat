@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import Auth from 'Auth';
 import Avatar from "components/Avatar";
 import moment from "moment";
-import {DropdownItem, DropdownMenu, DropdownToggle, Nav, UncontrolledDropdown} from "reactstrap";
+import { Row, DropdownItem, DropdownMenu, DropdownToggle, Nav, UncontrolledDropdown} from "reactstrap";
 
 /**
  * Chat Header.
@@ -32,7 +32,7 @@ const ChatHeader = props => {
      * Render Component
      */
     return (
-        <div className="row align-items-center heading m-0 w-100">
+        <Row className="heading m-0">
             <div onClick={props.toggle}>
                 <Avatar src={props.contact.avatar} />
             </div>
@@ -52,7 +52,7 @@ const ChatHeader = props => {
                     </DropdownMenu>
                 </UncontrolledDropdown>
             </Nav>
-        </div>
+        </Row>
     );
 };
 

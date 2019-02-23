@@ -33,7 +33,9 @@
     color: #80868a;
     padding: .5rem!important;
     min-height: 66px;
+    align-items: center!important;
 }
+
 
 .search{
     background: #eeeeee82;
@@ -41,16 +43,16 @@
     min-height: 50px;
 }
 
-#chat-list-area{
+#contacts-section{
     position:relative;
     flex-direction: column!important;
     display: flex!important;
     text-align: right;
 }
-#chat-list{
+#contacts{
     overflow:auto;
 }
-.chat-list-item {
+.contact {
     padding: .5rem !important;
     background: white;
     cursor: pointer;
@@ -58,27 +60,27 @@
     display: flex!important;
     border-bottom: 1px solid #dee2e6!important;
 }
-.chat-list-item:hover {
+.contact:hover {
     background: hsl(0, 0%, 95%);
 }
-.chat-list-item:active {
+.contact:active {
     background: hsl(0, 0%, 85%);
 }
 
-.chat-list-item .last-message{
+.contact .last-message{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-#message-area {
+#messages-section {
     border-right: 1px solid white;
     flex-direction: column!important;
     display: flex!important;
     padding: 0;
 }
 
-#message-area .overlay {
+#messages-section .overlay {
     background: hsl(0, 0%, 80%);
 }
 
@@ -161,7 +163,7 @@
     border-bottom: 2px solid transparent !important;
     outline: none;
     box-shadow: none !important;
-    border-radius: 0px;
+    border-radius: 0;
 }
 .side-profile input:focus {
     border-bottom-color: hsl(0, 0%, 50%) !important;
@@ -207,11 +209,14 @@
     margin: 3rem auto !important;
 }
 
-.form-auth{
+.auth{
+    margin-top: 50px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.form-auth .form-control{
+.auth .form-control{
     margin-bottom: 15px;
 }
 

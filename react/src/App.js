@@ -13,15 +13,17 @@ class App extends React.Component {
 
     render() {
         return (
-            <Router>
-                <Switch>
-                    <AppRoute path="/" exact component={Chat} can={Auth.auth} redirect='/login' />
-                    <AppRoute path="/password" component={Password} can={Auth.auth} redirect='/login' />
-                    <AppRoute path="/login" component={Login} can={Auth.guest} redirect='/' />
-                    <AppRoute path="/register" component={Register} can={Auth.guest} redirect='/' />
-                    <AppRoute component={NotFound} />
-                </Switch>
-            </Router>
+            <div className="container-fluid" id="main-container">
+                <Router>
+                    <Switch>
+                        <AppRoute path="/" exact component={Chat} can={Auth.auth} redirect='/login' />
+                        <AppRoute path="/password" component={Password} can={Auth.auth} redirect='/login' />
+                        <AppRoute path="/login" component={Login} can={Auth.guest} redirect='/' />
+                        <AppRoute path="/register" component={Register} can={Auth.guest} redirect='/' />
+                        <AppRoute component={NotFound} />
+                    </Switch>
+                </Router>
+            </div>
         );
     }
 }

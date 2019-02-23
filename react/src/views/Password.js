@@ -38,8 +38,8 @@ class Login extends React.Component {
      */
     render(){
         return (
-            <Card className="mx-auto col-lg-3 col-sm-6 mt-4">
-                <Form className="form-auth" onSubmit={this.onSubmit}>
+            <Card className="auth col-lg-3 col-sm-6">
+                <Form onSubmit={this.onSubmit}>
                     <img src={logo} alt="" width="200"  />
                     <h5 className="mb-4">تغيير كلمة المرور</h5>
                     <Error error={this.state.error} />

@@ -1,13 +1,13 @@
 import React from "react";
-import { Input } from 'reactstrap';
+import { Row, Input } from 'reactstrap';
 
 /**
  * Contacts Search Form.
  */
 const Search = props => (
-    <div className="row align-items-center search">
+    <Row className="align-items-center search">
         <Input onChange={props.onSearch} placeholder="بحث" />
-    </div>
+    </Row>
 );
 
 export default Search;

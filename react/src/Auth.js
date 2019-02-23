@@ -35,7 +35,6 @@ const Auth = {
         return localStorage.getItem('user') !== null
     },
 
-
     /**
      * Is guest.
      * @returns {boolean}
@@ -44,15 +43,27 @@ const Auth = {
         return localStorage.getItem('user') === null
     },
 
+    /**
+     * Get user token.
+     * @returns {string}
+     */
     getToken: () => {
         let user = JSON.parse(localStorage.getItem('user'));
         return user !== null ? user.token : '';
     },
 
+    /**
+     * Get user.
+     * @returns {JSON}
+     */
     getUser: () => {
         return JSON.parse(localStorage.getItem('user'));
     },
 
+    /**
+     * Set user
+     * @param newProfile
+     */
     setUser: (newProfile) => {
         let user = JSON.parse(localStorage.getItem('user'));
         newProfile.token = user.token;

@@ -7,13 +7,11 @@ import { Badge } from 'reactstrap';
  * Contact Item.
  */
 const Contact = props => (
-    <div className="chat-list-item">
-
+    <div className="contact">
         <div>
             <Avatar src={props.contact.avatar} />
             {props.contact.status === true ? <i className="fa fa-circle online" /> : ''}
         </div>
-
         <div className="w-50">
             <div className="name">{props.contact.name}</div>
             <div className="small last-message">

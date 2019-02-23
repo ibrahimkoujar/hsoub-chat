@@ -41,8 +41,8 @@ class Register extends React.Component {
      */
     render(){
         return (
-            <Card className="mx-auto col-lg-3 col-sm-6 mt-4">
-                <Form className="form-auth" onSubmit={this.onSubmit}>
+            <Card className="auth col-lg-3 col-sm-6">
+                <Form onSubmit={this.onSubmit}>
                     <img src={Logo} alt="" width="200" />
                     <h5 className="mb-4">إنشاء حساب جديد</h5>
                     <Error error={this.state.error}/>
@@ -51,7 +51,7 @@ class Register extends React.Component {
                     <Input type="password" value={this.state.password} name="password" onChange={this.onChange} placeholder="كلمة المرور" required />
                     <Button color="primary" block className="mb-3"> إنشاء </Button>
                     <small><Link to="/login">تسجيل الدخول</Link></small>
-                    <p className="mt-3 mb-3 text-muted">&copy; 2018 - 2019</p>
+                    <p className="m-3 text-muted">&copy; 2018 - 2019</p>
                 </Form>
             </Card>
         );
