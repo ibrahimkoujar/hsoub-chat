@@ -116,7 +116,7 @@ class Chat extends React.Component {
                     </div>
 
                     <div className="col-6 col-md-8" id="messages-section">
-                        <ChatHeader contact={this.state.contact} toggle={this.userProfileToggle} />
+                        <ChatHeader contact={this.state.contact} toggle={this.userProfileToggle} typing={this.state.typing} />
                         {this.renderChat()}
                         <MessageForm contact={this.state.contact} sender={this.sendMessage} sendType={this.sendType} />
                     </div>
@@ -217,8 +217,8 @@ class Chat extends React.Component {
     onTypingMessage = sender => {
         if (this.state.contact.id !== sender) return;
         this.setState({typing: sender});
-        if (this.state.timeout) clearTimeout(this.state.timeout);
-        const timeout = setTimeout(this.typingTimeout, 2000);
+        clearTimeout(this.state.timeout);
+        const timeout = setTimeout(this.typingTimeout, 3000);
         this.setState({timeout});
     };
 
