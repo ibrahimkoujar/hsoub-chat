@@ -1,5 +1,5 @@
 import React from "react";
-import Auth from 'Auth';
+import { withRouter } from "react-router-dom";
 import Avatar from "components/Avatar";
 import { Row, DropdownItem, DropdownMenu, DropdownToggle, Nav, UncontrolledDropdown} from "reactstrap";
 import moment from 'moment';
@@ -47,4 +47,4 @@ const ChatHeader = props => {
     );
 };
 
-export default ChatHeader;
+export default withRouter(ChatHeader);
