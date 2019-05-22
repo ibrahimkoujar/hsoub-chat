@@ -76,7 +76,8 @@ class Chat extends React.Component {
                     <ChatHeader 
                         contact={this.state.contact}
                         typing={this.state.typing}
-                        toggle={this.userProfileToggle}/>
+                        toggle={this.userProfileToggle}
+                        logout={this.logout} />
                     {this.renderChat()}
                     <MessageForm sender={this.sendMessage} sendType={this.sendType}/>
                 </div>
@@ -233,6 +234,15 @@ class Chat extends React.Component {
      * Send typing(composing) message.
      */
     sendType = () => this.state.socket.emit('typing', this.state.contact.id);
+
+    /**
+     * Logout user.
+     */
+    logout = () => {
+        this.state.socket.disconnect();
+        Auth.logout();
+        this.props.history.push('/');
+    };
 
     /**
      * update users statuses.
