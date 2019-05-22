@@ -4,14 +4,10 @@ import { ContactHeader, Contacts, ChatHeader, Messages, MessageForm, UserProfile
 import socketIO from 'socket.io-client';
 import Auth from 'Auth';
 
-/**
- * Chat Component.
- */
 class Chat extends React.Component {
 
     state = { 
         contacts: [],
-        messages: [],
         contact: {},
         userProfile: false,
         profile: false,
